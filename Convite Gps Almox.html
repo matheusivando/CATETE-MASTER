@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Control GPS</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080b12;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* CABEÇALHO */
+
+        header {
+            background: #0d111a;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #242b38;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #00c8ff;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 25px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00c8ff;
+        }
+
+        /* ÁREA PRINCIPAL */
+
+        .hero {
+            min-height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 8%;
+
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(0, 200, 255, 0.18),
+                    transparent 40%
+                ),
+                #080b12;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .icone {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #00c8ff;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #b5bac5;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .convocacao {
+            color: #00c8ff !important;
+            font-size: 25px !important;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* BOTÃO */
+
+        .botao {
+            margin-top: 30px;
+            padding: 17px 35px;
+            border: none;
+            border-radius: 8px;
+
+            background: #00c8ff;
+            color: #001018;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.25);
+        }
+
+        .botao:hover {
+            transform: translateY(-4px) scale(1.03);
+            background: #00aeda;
+            box-shadow: 0 0 30px rgba(0, 200, 255, 0.45);
+        }
+
+        /* PRÊMIO */
+
+        #premio {
+            display: none;
+            margin-top: 40px;
+
+            background: #101722;
+
+            border: 1px solid #00c8ff;
+
+            border-radius: 15px;
+
+            padding: 35px;
+
+            animation: aparecer 0.6s ease;
+        }
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        #premio h2 {
+            color: #00c8ff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        #premio p {
+            color: #d5d8de;
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            color: #00c8ff;
+            font-weight: bold;
+        }
+
+        .equipamento {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .item {
+            background: #171e29;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #252e3c;
+            transition: 0.3s;
+        }
+
+        .item:hover {
+            border-color: #00c8ff;
+            transform: translateY(-4px);
+        }
+
+        .item h3 {
+            color: #00c8ff;
+            margin-bottom: 8px;
+        }
+
+        /* RODAPÉ */
+
+        footer {
+            background: #05070b;
+            text-align: center;
+            padding: 30px;
+            color: #777f8c;
+            border-top: 1px solid #202631;
+        }
+
+        .criador {
+            margin-top: 10px;
+            color: #00c8ff;
+            font-weight: bold;
+        }
+
+        /* CELULAR */
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .equipamento {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- CABEÇALHO -->
+
+    <header>
+
+        <div class="logo">
+            CONTROL <span>GPS</span>
+        </div>
+
+        <nav>
+
+            <a href="#inicio">Início</a>
+
+            <a href="#convocacao">
+                Convocação
+            </a>
+
+            <a href="#premio">
+                Prêmio
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- PRINCIPAL -->
+
+    <main>
+
+        <section class="hero" id="inicio">
+
+            <div class="hero-content">
+
+                <div class="icone">
+                    📡
+                </div>
+
+                <h1>
+                    Seja bem-vindo à
+                    <span>Control GPS</span>
+                </h1>
+
+                <p>
+                    Sistema oficial de convocação
+                    para operações especiais.
+                </p>
+
+                <p class="convocacao">
+                    🚨 VOCÊ FOI CONVOCADO! 🚨
+                </p>
+
+                <p>
+                    Amanhã, sábado, você deverá
+                    comparecer à missão.
+                </p>
+
+                <button
+                    class="botao"
+                    onclick="mostrarPremio()">
+
+                    🎁 CLIQUE AQUI PARA VER SEU PRÊMIO
+
+                </button>
+
+
+                <!-- PRÊMIO -->
+
+                <div id="premio">
+
+                    <h2>
+                        🚨 PARABÉNS, MEU JOVEM! 🚨
+                    </h2>
+
+                    <p>
+                        Sua convocação foi confirmada.
+                    </p>
+
+                    <p>
+                        Você irá para os
+                        <span class="destaque">
+                            CABOS
+                        </span>! 😂
+                    </p>
+
+                    <p>
+                        E não esqueça de preparar
+                        seu uniforme oficial.
+                    </p>
+
+
+                    <div class="equipamento">
+
+                        <div class="item">
+
+                            <h3>
+                                🧢 Boné árabe
+                            </h3>
+
+                            <p>
+                                Item obrigatório
+                                para a missão.
+                            </p>
+
+                        </div>
+
+
+                        <div class="item">
+
+                            <h3>
+                                👕 Camisa longa
+                            </h3>
+
+                            <p>
+                                Não esqueça de levar
+                                a camisa longa.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="criador">
+
+                        Criado especialmente por
+                        Matheus Ivando 😎
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+
+    <footer>
+
+        <p>
+            © 2026 Control GPS
+        </p>
+
+        <p class="criador">
+            Sistema criado por Matheus Ivando
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function mostrarPremio() {
+
+            const premio =
+                document.getElementById("premio");
+
+            premio.style.display = "block";
+
+            premio.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>
