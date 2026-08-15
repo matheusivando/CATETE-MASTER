@@ -1,427 +1,2091 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Control GPS</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #080b12;
-            color: white;
-            min-height: 100vh;
-        }
-
-        /* CABEÇALHO */
-
-        header {
-            background: #0d111a;
-            padding: 22px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #242b38;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: #00c8ff;
-        }
-
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin-left: 25px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #00c8ff;
-        }
-
-        /* ÁREA PRINCIPAL */
-
-        .hero {
-            min-height: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 60px 8%;
-
-            background:
-                radial-gradient(
-                    circle at 50% 20%,
-                    rgba(0, 200, 255, 0.18),
-                    transparent 40%
-                ),
-                #080b12;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .icone {
-            font-size: 70px;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-size: 58px;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 span {
-            color: #00c8ff;
-        }
-
-        .hero p {
-            font-size: 20px;
-            color: #b5bac5;
-            line-height: 1.7;
-            margin-bottom: 15px;
-        }
-
-        .convocacao {
-            color: #00c8ff !important;
-            font-size: 25px !important;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        /* BOTÃO */
-
-        .botao {
-            margin-top: 30px;
-            padding: 17px 35px;
-            border: none;
-            border-radius: 8px;
-
-            background: #00c8ff;
-            color: #001018;
-
-            font-size: 17px;
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-
-            box-shadow: 0 0 20px rgba(0, 200, 255, 0.25);
-        }
-
-        .botao:hover {
-            transform: translateY(-4px) scale(1.03);
-            background: #00aeda;
-            box-shadow: 0 0 30px rgba(0, 200, 255, 0.45);
-        }
-
-        /* PRÊMIO */
-
-        #premio {
-            display: none;
-            margin-top: 40px;
-
-            background: #101722;
-
-            border: 1px solid #00c8ff;
-
-            border-radius: 15px;
-
-            padding: 35px;
-
-            animation: aparecer 0.6s ease;
-        }
-
-        @keyframes aparecer {
-
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        }
-
-        #premio h2 {
-            color: #00c8ff;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        #premio p {
-            color: #d5d8de;
-            font-size: 19px;
-            line-height: 1.8;
-        }
-
-        .destaque {
-            color: #00c8ff;
-            font-weight: bold;
-        }
-
-        .equipamento {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .item {
-            background: #171e29;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #252e3c;
-            transition: 0.3s;
-        }
-
-        .item:hover {
-            border-color: #00c8ff;
-            transform: translateY(-4px);
-        }
-
-        .item h3 {
-            color: #00c8ff;
-            margin-bottom: 8px;
-        }
-
-        /* RODAPÉ */
-
-        footer {
-            background: #05070b;
-            text-align: center;
-            padding: 30px;
-            color: #777f8c;
-            border-top: 1px solid #202631;
-        }
-
-        .criador {
-            margin-top: 10px;
-            color: #00c8ff;
-            font-weight: bold;
-        }
-
-        /* CELULAR */
-
-        @media (max-width: 700px) {
-
-            header {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            nav a {
-                margin: 0 8px;
-            }
-
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .equipamento {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+<title>Checklist Empilhadeira · Control Construções</title>
+<style>
+  :root{
+    --charcoal:#1C1E21;
+    --charcoal-2:#2A2D31;
+    --yellow:#F5C400;
+    --yellow-dark:#C79A00;
+    --paper:#F7F5F0;
+    --paper-2:#FFFFFF;
+    --steel:#6B7280;
+    --steel-light:#D8DBE0;
+    --red:#C0272A;
+    --red-bg:#FDECEC;
+    --green:#1F7A4D;
+    --green-bg:#E9F6EF;
+    --shadow: 0 2px 10px rgba(0,0,0,.12);
+    --radius: 6px;
+  }
+  *{box-sizing:border-box; min-width:0;}
+  html,body{margin:0;padding:0; width:100%; max-width:100%; overflow-x:hidden;}
+  body{
+    background:var(--paper);
+    color:var(--charcoal);
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img, table{ max-width:100%; }
+  .hazard-bar{
+    height:8px;
+    background-image: repeating-linear-gradient(135deg, var(--yellow) 0 18px, var(--charcoal) 18px 36px);
+  }
+  header.app-header{
+    background:var(--charcoal);
+    color:var(--paper-2);
+    padding:14px 20px 0 20px;
+  }
+  .app-header .title-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    padding-bottom:14px;
+  }
+  .app-header h1{
+    font-size:19px; margin:0; letter-spacing:.4px; font-weight:800; text-transform:uppercase;
+  }
+  .app-header h1 span{ color:var(--yellow); }
+  .app-header .sub{
+    font-size:11.5px; color:var(--steel-light); margin-top:2px; letter-spacing:.3px;
+  }
+  nav.tabs{
+    display:flex; gap:4px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  }
+  nav.tabs button{
+    background:transparent; border:none; color:#C7CBD1; padding:10px 16px;
+    font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.3px;
+    cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap; flex:0 0 auto;
+  }
+  nav.tabs button.active{ color:#fff; border-bottom-color:var(--yellow); }
+  main{ max-width:980px; margin:0 auto; padding:18px 14px 60px 14px; }
+  .card{
+    background:var(--paper-2); border:1px solid var(--steel-light); border-radius:var(--radius);
+    padding:16px; margin-bottom:16px; box-shadow:var(--shadow);
+  }
+  .card h2{
+    margin:0 0 12px 0; font-size:14px; text-transform:uppercase; letter-spacing:.5px;
+    color:var(--charcoal-2); border-bottom:2px solid var(--yellow); padding-bottom:8px;
+  }
+  .grid{ display:flex; flex-wrap:wrap; gap:10px 14px; }
+  .grid > label.field{ flex:1 1 200px; min-width:0; }
+  .grid > label.field[style*="span 2"]{ flex-basis:100%; }
+  .grid.cols2 > label.field{ flex:1 1 260px; }
+  label.field{ display:flex; flex-direction:column; font-size:12px; font-weight:700; color:var(--steel); gap:4px; min-width:0; }
+  label.field input, label.field select, label.field textarea{
+    width:100%; max-width:100%; font-family:inherit; font-size:14px; color:var(--charcoal); font-weight:400;
+    border:1px solid var(--steel-light); border-radius:4px; padding:8px 9px; background:#fff;
+  }
+  label.field input:focus, label.field select:focus, label.field textarea:focus{
+    outline:2px solid var(--yellow-dark); outline-offset:1px; border-color:var(--yellow-dark);
+  }
+  .item-row{
+    display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center;
+    padding:10px 6px; border-bottom:1px solid #EEE;
+  }
+  .item-row:last-child{border-bottom:none;}
+  .item-row.critico{ background:#FFFBEA; }
+  .item-row .item-label{ flex:1 1 100%; }
+  .item-row .opt-group{ display:flex; gap:14px; flex:1 1 auto; }
+  .item-row textarea{ flex:1 1 100%; }
+  .item-label{ font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:6px; }
+  .tag-critico{
+    font-size:9.5px; font-weight:800; background:var(--yellow); color:var(--charcoal);
+    padding:1px 5px; border-radius:3px; letter-spacing:.3px;
+  }
+  .opt{ display:flex; align-items:center; gap:5px; font-size:12.5px; font-weight:600; cursor:pointer; }
+  .opt input{ transform:scale(1.15); cursor:pointer; }
+  .opt.conforme.checked{ color:var(--green); }
+  .opt.naoconforme.checked{ color:var(--red); }
+  .item-row textarea{
+    width:100%; resize:vertical; min-height:32px; font-size:12.5px; border:1px solid var(--steel-light);
+    border-radius:4px; padding:6px 8px; font-family:inherit;
+  }
+  .section-title{
+    font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:.4px;
+    color:#fff; background:var(--charcoal-2); padding:7px 10px; border-radius:4px 4px 0 0; margin-top:14px;
+  }
+  .section-body{ border:1px solid var(--steel-light); border-top:none; border-radius:0 0 4px 4px; padding:2px 6px; }
+  .alert{
+    display:flex; gap:10px; align-items:flex-start; padding:12px 14px; border-radius:var(--radius);
+    font-size:13px; font-weight:700; margin-bottom:14px;
+  }
+  .alert.danger{ background:var(--red-bg); color:var(--red); border:1px solid #F0B9BA; }
+  .alert.danger .stripes{
+    min-width:6px; align-self:stretch; border-radius:3px;
+    background-image: repeating-linear-gradient(135deg, var(--red) 0 6px, var(--charcoal) 6px 12px);
+  }
+  .btn{
+    font-family:inherit; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.3px;
+    border-radius:4px; padding:11px 18px; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+  }
+  .btn-primary{ background:var(--yellow); color:var(--charcoal); }
+  .btn-primary:hover{ background:var(--yellow-dark); }
+  .btn-outline{ background:transparent; border:1.5px solid var(--charcoal); color:var(--charcoal); }
+  .btn-outline:hover{ background:var(--charcoal); color:#fff; }
+  .btn-danger{ background:var(--red); color:#fff; }
+  .btn-danger:hover{ background:#98211f; }
+  .btn-small{ padding:6px 10px; font-size:11px; }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+  .parecer-options{ display:flex; gap:20px; flex-wrap:wrap; margin-top:6px; }
+  .parecer-opt{
+    flex:1; min-width:220px; border:2px solid var(--steel-light); border-radius:6px; padding:14px;
+    display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:800; font-size:13px; text-transform:uppercase;
+  }
+  .parecer-opt.liberado.selected{ border-color:var(--green); background:var(--green-bg); color:var(--green); }
+  .parecer-opt.naoliberado.selected{ border-color:var(--red); background:var(--red-bg); color:var(--red); }
+  .parecer-opt.selected:not(.liberado):not(.naoliberado){ border-color:var(--yellow-dark); background:#FFF8E1; color:var(--yellow-dark); }
+  .parecer-opt input:disabled{ cursor:not-allowed; }
+  .parecer-opt.disabled{ opacity:.45; cursor:not-allowed; }
+  table.data-table{ width:100%; border-collapse:collapse; font-size:12.5px; }
+  table.data-table th{
+    text-align:left; background:var(--charcoal-2); color:#fff; padding:8px 8px; font-size:11px;
+    text-transform:uppercase; letter-spacing:.3px;
+  }
+  table.data-table td{ padding:8px 8px; border-bottom:1px solid #EEE; vertical-align:middle; }
+  table.data-table tr:hover td{ background:#FAFAF7; }
+  .table-wrap{ overflow-x:auto; }
+  .badge{ font-size:10.5px; font-weight:800; padding:3px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:.3px; white-space:nowrap; }
+  .badge.liberado{ background:var(--green-bg); color:var(--green); }
+  .badge.naoliberado{ background:var(--red-bg); color:var(--red); }
+  .badge.agendada{ background:#E9F0FB; color:#1D4E89; }
+  .badge.andamento{ background:#FFF3D6; color:#8A6100; }
+  .badge.concluida{ background:var(--green-bg); color:var(--green); }
+  .badge.atrasada{ background:var(--red-bg); color:var(--red); }
+  .filters{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+  .filters label.field{ flex:1; min-width:150px; }
+  .icon-btn{ background:none; border:none; cursor:pointer; font-size:14px; padding:4px 6px; border-radius:4px; }
+  .icon-btn:hover{ background:#EEE; }
+  .empty-state{ text-align:center; padding:40px 20px; color:var(--steel); font-size:13px; }
+  .modal-overlay{
+    position:fixed; top:0; right:0; bottom:0; left:0; background:rgba(0,0,0,.55); display:flex; align-items:flex-start; justify-content:center;
+    padding:30px 14px; overflow-y:auto; z-index:100;
+  }
+  .modal-overlay[hidden]{ display:none !important; }
+  .modal{ background:#fff; border-radius:8px; max-width:760px; width:100%; padding:22px; box-shadow:0 10px 40px rgba(0,0,0,.3); }
+  .modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .modal-header h3{ margin:0; font-size:16px; text-transform:uppercase; letter-spacing:.3px; }
+  .close-x{ background:none; border:none; font-size:22px; cursor:pointer; line-height:1; color:var(--steel); }
+  .kv{ display:flex; flex-wrap:wrap; gap:6px 20px; font-size:12.5px; margin-bottom:14px; }
+  .kv > div{ flex:1 1 200px; min-width:0; }
+  .kv div b{ display:block; font-size:10px; text-transform:uppercase; color:var(--steel); font-weight:800; }
+  .mini-table{ width:100%; border-collapse:collapse; font-size:12px; margin-bottom:10px; }
+  .mini-table th{ text-align:left; background:#F1F1EC; padding:5px 7px; font-size:10.5px; text-transform:uppercase; }
+  .mini-table td{ padding:5px 7px; border-bottom:1px solid #EEE; }
+  .status-pill{ font-weight:800; }
+  .status-pill.ok{ color:var(--green); }
+  .status-pill.no{ color:var(--red); }
+  .helper-text{ font-size:11.5px; color:var(--steel); margin-top:-8px; margin-bottom:14px; }
+  .stat-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+  .stat-card{ flex:1; min-width:150px; background:var(--charcoal); color:#fff; border-radius:6px; padding:14px; }
+  .stat-card .num{ font-size:24px; font-weight:800; color:var(--yellow); }
+  .stat-card .lbl{ font-size:10.5px; text-transform:uppercase; letter-spacing:.3px; color:#C7CBD1; margin-top:2px; }
+  textarea.obs-final{ width:100%; min-height:70px; font-family:inherit; font-size:13px; border:1px solid var(--steel-light); border-radius:4px; padding:8px; }
+  .req-star{ color:var(--red); }
+  .sub-tabs{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; border-bottom:2px solid var(--steel-light); padding-bottom:0; }
+  .subtab-btn{
+    background:transparent; border:none; color:var(--steel); padding:9px 14px; font-size:12.5px; font-weight:800;
+    text-transform:uppercase; letter-spacing:.3px; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px;
+  }
+  .subtab-btn.active{ color:var(--charcoal); border-bottom-color:var(--yellow-dark); }
+  .bar-chart-row{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .bar-chart-row .bar-label{ flex:0 0 160px; font-size:12px; font-weight:700; color:var(--charcoal-2); }
+  .bar-chart-row .bar-track{ flex:1 1 auto; background:#EFEFE9; border-radius:4px; height:20px; overflow:hidden; }
+  .bar-chart-row .bar-fill{ height:100%; border-radius:4px; display:flex; align-items:center; justify-content:flex-end; padding-right:6px; }
+  .bar-chart-row .bar-value{ flex:0 0 110px; font-size:12px; font-weight:800; text-align:right; }
+  .cat-badge{ font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:20px; white-space:nowrap; }
+  .cat-manutencao{ background:#E9F0FB; color:#1D4E89; }
+  .cat-gas{ background:#FFF3D6; color:#8A6100; }
+  .cat-pneus{ background:#F1E9FB; color:#5B2D91; }
+  .cat-locacao{ background:#E9F6EF; color:var(--green); }
+  .cat-outros{ background:#F1F1EC; color:var(--steel); }
+  .field-with-btn{ display:flex; gap:6px; align-items:stretch; }
+  .field-with-btn input{ flex:1 1 auto; }
+  .field-with-btn button{ flex:0 0 auto; padding:8px 12px; }
+  #printArea{ display:none; }
+  @media print{
+    body > *:not(#printArea){ display:none !important; }
+    #printArea{ display:block !important; }
+    @page{ size:A4; margin:14mm; }
+  }
+  .pf-doc{ font-family: Arial, sans-serif; color:#111; font-size:11.5px; }
+  .pf-doc h1{ font-size:15px; text-align:center; margin:0 0 2px 0; text-transform:uppercase; }
+  .pf-doc .pf-sub{ text-align:center; font-size:11px; margin-bottom:10px; }
+  .pf-doc table{ width:100%; border-collapse:collapse; margin-bottom:8px; }
+  .pf-doc table.pf-header td{ border:1px solid #999; padding:4px 6px; font-size:11px; }
+  .pf-doc table.pf-items th, .pf-doc table.pf-items td{ border:1px solid #999; padding:3px 6px; font-size:10.5px; }
+  .pf-doc table.pf-items th{ background:#EEE; text-align:left; }
+  .pf-doc .pf-section{ font-weight:bold; background:#333; color:#fff; padding:3px 6px; font-size:11px; margin-top:8px; }
+  .pf-doc .pf-parecer{ font-weight:bold; padding:8px; text-align:center; font-size:12.5px; border:2px solid #111; margin:10px 0; }
+  .pf-doc .pf-parecer.ok{ background:#E9F6EF; }
+  .pf-doc .pf-parecer.no{ background:#FDECEC; }
+  .pf-doc .pf-sign{ display:flex; justify-content:space-between; margin-top:26px; }
+  .pf-doc .pf-sign div{ width:45%; border-top:1px solid #111; text-align:center; padding-top:4px; font-size:10.5px; }
+</style>
 </head>
-
 <body>
 
+<div class="hazard-bar"></div>
+<header class="app-header">
+  <div class="title-row">
+    <div>
+      <h1>Check<span>list</span> Empilhadeira GLP</h1>
+      <div class="sub">Control Construções · Grupo GPS — Pré-operação, Histórico e Manutenção Programada</div>
+    </div>
+  </div>
+  <nav class="tabs">
+    <button class="active" data-tab="checklist" onclick="mudarAba('checklist')">Novo Checklist</button>
+    <button data-tab="historico" onclick="mudarAba('historico')">Histórico</button>
+    <button data-tab="manutencao" onclick="mudarAba('manutencao')">Manutenção Programada</button>
+    <button data-tab="despesas" onclick="mudarAba('despesas')">Controle de Despesas</button>
+  </nav>
+</header>
+<div class="hazard-bar"></div>
 
-    <!-- CABEÇALHO -->
+<main>
 
-    <header>
+  <!-- ===================== ABA CHECKLIST ===================== -->
+  <section id="tab-checklist">
 
-        <div class="logo">
-            CONTROL <span>GPS</span>
+    <div id="alertaCritico" class="alert danger" style="display:none;">
+      <div class="stripes"></div>
+      <div>
+        ITEM CRÍTICO NÃO CONFORME IDENTIFICADO — Interdite o equipamento imediatamente e acione a liderança de Suprimentos antes de qualquer utilização. O parecer final foi bloqueado em "Equipamento não liberado".
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Identificação</h2>
+      <div class="grid">
+        <label class="field">Data <input type="date" id="f_data"></label>
+        <label class="field">Nº da Ordem de Serviço <span style="font-weight:400; text-transform:none; color:var(--steel);">(gerado automaticamente)</span>
+          <div class="field-with-btn">
+            <input type="text" id="f_os" readonly>
+            <button type="button" class="btn btn-outline btn-small" onclick="regenerarOS()" title="Gerar novo número">↻</button>
+          </div>
+        </label>
+        <label class="field">Empilhadeira <span class="req-star">*</span><input type="text" id="f_empilhadeira" placeholder="Ex.: EMP-04"></label>
+        <label class="field">Matrícula <input type="text" id="f_matricula"></label>
+        <label class="field">Horário <input type="time" id="f_horario"></label>
+        <label class="field">Horímetro <span class="req-star">*</span><input type="text" id="f_horimetro" placeholder="Ex.: 4521.3"></label>
+        <label class="field" style="grid-column: span 2;">Operador <span class="req-star">*</span><input type="text" id="f_operador"></label>
+      </div>
+    </div>
+
+    <div class="card" id="itensContainer">
+      <h2>Itens de Inspeção</h2>
+      <div class="helper-text">Marque cada item como Conforme ou Não Conforme. Itens com a etiqueta <span class="tag-critico">CRÍTICO</span> interditam o equipamento automaticamente se marcados como não conforme.</div>
+      <!-- seções renderizadas via JS -->
+    </div>
+
+    <div class="card">
+      <h2>Parecer Final</h2>
+      <div class="parecer-options" id="parecerOptions">
+        <label class="parecer-opt liberado" id="optLiberado">
+          <input type="radio" name="parecer" value="liberado" onchange="onParecerChangeUsuario()"> Equipamento liberado para operação
+        </label>
+        <label class="parecer-opt naoliberado" id="optNaoLiberado">
+          <input type="radio" name="parecer" value="nao_liberado" onchange="onParecerChangeUsuario()"> Equipamento não liberado para operação
+        </label>
+      </div>
+      <label class="field" style="margin-top:14px;">Descrição da não conformidade
+        <textarea class="obs-final" id="f_naoconformidade" placeholder="Descreva o problema identificado, se houver..."></textarea>
+      </label>
+    </div>
+
+    <div class="card">
+      <h2>Responsáveis</h2>
+      <div class="grid cols2">
+        <label class="field">Nome do Operador <input type="text" id="f_op_nome"></label>
+        <label class="field">Assinatura do Operador (digitar nome como confirmação) <input type="text" id="f_op_assinatura"></label>
+        <label class="field">Nome do Supervisor (quando houver não conformidade) <input type="text" id="f_sup_nome"></label>
+        <label class="field">Assinatura do Supervisor <input type="text" id="f_sup_assinatura"></label>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="salvarChecklist(true)">💾 Salvar e Exportar PDF</button>
+      <button class="btn btn-outline" onclick="salvarChecklist(false)">Salvar Checklist</button>
+      <button class="btn btn-outline" onclick="limparFormulario()">Limpar Formulário</button>
+    </div>
+  </section>
+
+  <!-- ===================== ABA HISTÓRICO ===================== -->
+  <section id="tab-historico" hidden>
+    <div class="card">
+      <h2>Filtrar Histórico</h2>
+      <div class="filters">
+        <label class="field">Empilhadeira
+          <select id="filtroEmpilhadeira" onchange="renderHistorico()"><option value="">Todas</option></select>
+        </label>
+        <label class="field">Parecer
+          <select id="filtroParecer" onchange="renderHistorico()">
+            <option value="">Todos</option>
+            <option value="liberado">Liberado</option>
+            <option value="nao_liberado">Não liberado</option>
+          </select>
+        </label>
+        <label class="field">De <input type="date" id="filtroDe" onchange="renderHistorico()"></label>
+        <label class="field">Até <input type="date" id="filtroAte" onchange="renderHistorico()"></label>
+        <label class="field">Operador <input type="text" id="filtroOperador" placeholder="Buscar..." oninput="renderHistorico()"></label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Checklists Registrados</h2>
+      <div class="table-wrap">
+        <table class="data-table" id="tabelaHistorico">
+          <thead>
+            <tr><th>Data</th><th>Empilhadeira</th><th>Operador</th><th>Horímetro</th><th>Parecer</th><th>Ações</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="historicoVazio" class="empty-state" style="display:none;">Nenhum checklist encontrado com os filtros selecionados.</div>
+    </div>
+  </section>
+
+  <!-- ===================== ABA MANUTENÇÃO ===================== -->
+  <section id="tab-manutencao" hidden>
+
+    <div class="sub-tabs">
+      <button class="subtab-btn active" data-subtab="eventos" onclick="mudarSubAbaManutencao('eventos')">Eventos de Manutenção</button>
+      <button class="subtab-btn" data-subtab="recebimento" onclick="mudarSubAbaManutencao('recebimento')">Checklist de Recebimento Pós-Manutenção</button>
+    </div>
+
+    <div id="subtab-eventos">
+      <div class="stat-row" id="statsManutencao"></div>
+
+      <div class="card">
+        <h2 id="tituloFormManutencao">Registrar Evento de Manutenção</h2>
+        <input type="hidden" id="m_id">
+        <div class="grid">
+          <label class="field">Empilhadeira <span class="req-star">*</span><input type="text" id="m_empilhadeira" placeholder="Ex.: EMP-04"></label>
+          <label class="field">Tipo de Manutenção
+            <select id="m_tipo">
+              <option>Preventiva</option>
+              <option>Corretiva</option>
+              <option>Preditiva</option>
+            </select>
+          </label>
+          <label class="field">Responsável <input type="text" id="m_responsavel"></label>
+          <label class="field">Data Agendada <span class="req-star">*</span><input type="date" id="m_data_agendada"></label>
+          <label class="field">Data Realizada <input type="date" id="m_data_realizada"></label>
+          <label class="field">Horímetro <input type="text" id="m_horimetro"></label>
         </div>
+        <label class="field" style="margin-top:12px;">Observações
+          <textarea class="obs-final" id="m_observacoes"></textarea>
+        </label>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="salvarManutencao()">Salvar Evento</button>
+          <button class="btn btn-outline" onclick="limparFormManutencao()">Cancelar / Limpar</button>
+        </div>
+      </div>
 
-        <nav>
+      <div class="card">
+        <h2>Eventos de Manutenção</h2>
+        <div class="filters">
+          <label class="field">Empilhadeira
+            <select id="filtroManEmpilhadeira" onchange="renderManutencoes()"><option value="">Todas</option></select>
+          </label>
+          <label class="field">Status
+            <select id="filtroManStatus" onchange="renderManutencoes()">
+              <option value="">Todos</option>
+              <option value="Agendada">Agendada</option>
+              <option value="Concluída">Concluída</option>
+              <option value="Atrasada">Atrasada</option>
+            </select>
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="tabelaManutencao">
+            <thead>
+              <tr><th>Empilhadeira</th><th>Tipo</th><th>Agendada</th><th>Realizada</th><th>Responsável</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="manutencaoVazio" class="empty-state" style="display:none;">Nenhum evento de manutenção registrado.</div>
+      </div>
+    </div>
 
-            <a href="#inicio">Início</a>
+    <div id="subtab-recebimento" hidden>
 
-            <a href="#convocacao">
-                Convocação
-            </a>
+      <div id="alertaCriticoRecebimento" class="alert danger" style="display:none;">
+        <div class="stripes"></div>
+        <div>
+          ITEM CRÍTICO NÃO CONFORME IDENTIFICADO NO RECEBIMENTO — o parecer final foi bloqueado em "Reprovado". Avalie com o fornecedor antes de liberar o equipamento para operação.
+        </div>
+      </div>
 
-            <a href="#premio">
-                Prêmio
-            </a>
+      <div class="card">
+        <h2>Identificação</h2>
+        <div class="grid">
+          <label class="field">Data <input type="date" id="rec_data"></label>
+          <label class="field">Nº da Ordem de Serviço <input type="text" id="rec_os" placeholder="Ex.: OS-00123"></label>
+          <label class="field">Empilhadeira <span class="req-star">*</span><input type="text" id="rec_empilhadeira" placeholder="Ex.: EMP-04"></label>
+          <label class="field">Marca / Modelo <input type="text" id="rec_marca_modelo"></label>
+          <label class="field">Patrimônio <input type="text" id="rec_patrimonio"></label>
+          <label class="field">Horímetro <input type="text" id="rec_horimetro"></label>
+          <label class="field">Fornecedor <span class="req-star">*</span><input type="text" id="rec_fornecedor" placeholder="Ex.: Nome do fornecedor"></label>
+          <label class="field">Vincular a um evento de manutenção (opcional)
+            <select id="rec_vinculo"><option value="">Nenhum</option></select>
+          </label>
+        </div>
+      </div>
 
-        </nav>
+      <div class="card" id="documentacaoContainer">
+        <h2>1. Documentação</h2>
+        <div class="helper-text">Marque cada item como Sim ou Não.</div>
+      </div>
 
-    </header>
+      <div class="card" id="itensRecebimentoContainer">
+        <h2>Inspeção Técnica</h2>
+        <div class="helper-text">Marque cada item como Conforme ou Não Conforme. Itens com a etiqueta <span class="tag-critico">CRÍTICO</span> bloqueiam o parecer final em "Reprovado" se marcados como não conforme.</div>
+      </div>
 
+      <div class="card">
+        <h2>Não Conformidades Encontradas</h2>
+        <textarea class="obs-final" id="rec_naoconformidades" placeholder="Descreva as não conformidades identificadas, se houver..."></textarea>
+      </div>
 
-    <!-- PRINCIPAL -->
+      <div class="card">
+        <h2>Parecer Final</h2>
+        <div class="parecer-options" id="parecerOptionsRecebimento">
+          <label class="parecer-opt liberado" id="optAprovado">
+            <input type="radio" name="parecerRecebimento" value="aprovado" onchange="onParecerRecebimentoChangeUsuario()"> Aprovado
+          </label>
+          <label class="parecer-opt" id="optAprovadoRessalvas" style="border-color:var(--yellow-dark);">
+            <input type="radio" name="parecerRecebimento" value="aprovado_ressalvas" onchange="onParecerRecebimentoChangeUsuario()"> Aprovado com Ressalvas
+          </label>
+          <label class="parecer-opt naoliberado" id="optReprovado">
+            <input type="radio" name="parecerRecebimento" value="reprovado" onchange="onParecerRecebimentoChangeUsuario()"> Reprovado
+          </label>
+        </div>
+      </div>
 
-    <main>
+      <div class="card">
+        <h2>Responsáveis</h2>
+        <div class="grid cols2">
+          <label class="field">Fornecedor — Nome do Responsável Técnico <input type="text" id="rec_forn_nome"></label>
+          <label class="field">Fornecedor — Assinatura (digitar nome como confirmação) <input type="text" id="rec_forn_assinatura"></label>
+          <label class="field">Control Construções — Nome do Responsável pelo Recebimento <input type="text" id="rec_ctrl_nome"></label>
+          <label class="field">Control Construções — Cargo <input type="text" id="rec_ctrl_cargo"></label>
+          <label class="field">Control Construções — Assinatura <input type="text" id="rec_ctrl_assinatura"></label>
+        </div>
+      </div>
 
-        <section class="hero" id="inicio">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="salvarRecebimento(true)">💾 Salvar e Exportar PDF</button>
+        <button class="btn btn-outline" onclick="salvarRecebimento(false)">Salvar Checklist</button>
+        <button class="btn btn-outline" onclick="limparFormRecebimento()">Limpar Formulário</button>
+      </div>
 
-            <div class="hero-content">
+      <div class="card" style="margin-top:16px;">
+        <h2>Filtrar Histórico de Recebimento</h2>
+        <div class="filters">
+          <label class="field">Empilhadeira
+            <select id="filtroRecEmpilhadeira" onchange="renderHistoricoRecebimento()"><option value="">Todas</option></select>
+          </label>
+          <label class="field">Parecer
+            <select id="filtroRecParecer" onchange="renderHistoricoRecebimento()">
+              <option value="">Todos</option>
+              <option value="aprovado">Aprovado</option>
+              <option value="aprovado_ressalvas">Aprovado com Ressalvas</option>
+              <option value="reprovado">Reprovado</option>
+            </select>
+          </label>
+          <label class="field">Fornecedor <input type="text" id="filtroRecFornecedor" placeholder="Buscar..." oninput="renderHistoricoRecebimento()"></label>
+          <label class="field">De <input type="date" id="filtroRecDe" onchange="renderHistoricoRecebimento()"></label>
+          <label class="field">Até <input type="date" id="filtroRecAte" onchange="renderHistoricoRecebimento()"></label>
+        </div>
+      </div>
 
-                <div class="icone">
-                    📡
-                </div>
+      <div class="card">
+        <h2>Checklists de Recebimento Registrados</h2>
+        <div class="table-wrap">
+          <table class="data-table" id="tabelaRecebimento">
+            <thead>
+              <tr><th>Data</th><th>Empilhadeira</th><th>Fornecedor</th><th>Horímetro</th><th>Parecer</th><th>Ações</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="recebimentoVazio" class="empty-state" style="display:none;">Nenhum checklist de recebimento encontrado.</div>
+      </div>
+    </div>
 
-                <h1>
-                    Seja bem-vindo à
-                    <span>Control GPS</span>
-                </h1>
+  </section>
 
-                <p>
-                    Sistema oficial de convocação
-                    para operações especiais.
-                </p>
+  <!-- ===================== ABA CONTROLE DE DESPESAS ===================== -->
+  <section id="tab-despesas" hidden>
 
-                <p class="convocacao">
-                    🚨 VOCÊ FOI CONVOCADO! 🚨
-                </p>
+    <div class="card">
+      <h2>Filtrar Despesas</h2>
+      <div class="filters">
+        <label class="field">Empilhadeira
+          <select id="filtroDespEmpilhadeira" onchange="renderDespesas()"><option value="">Todas</option></select>
+        </label>
+        <label class="field">Categoria
+          <select id="filtroDespCategoria" onchange="renderDespesas()"><option value="">Todas</option></select>
+        </label>
+        <label class="field">Fornecedor
+          <select id="filtroDespFornecedor" onchange="renderDespesas()"><option value="">Todos</option></select>
+        </label>
+        <label class="field">De <input type="date" id="filtroDespDe" onchange="renderDespesas()"></label>
+        <label class="field">Até <input type="date" id="filtroDespAte" onchange="renderDespesas()"></label>
+      </div>
+    </div>
 
-                <p>
-                    Amanhã, sábado, você deverá
-                    comparecer à missão.
-                </p>
+    <div class="stat-row" id="statsDespesas"></div>
 
-                <button
-                    class="botao"
-                    onclick="mostrarPremio()">
+    <div class="card">
+      <h2>Distribuição por Categoria</h2>
+      <div id="graficoCategorias"></div>
+    </div>
 
-                    🎁 CLIQUE AQUI PARA VER SEU PRÊMIO
+    <div class="card">
+      <h2>Ranking de Fornecedores</h2>
+      <div class="table-wrap">
+        <table class="data-table" id="tabelaFornecedores">
+          <thead>
+            <tr><th>Fornecedor</th><th>Categoria(s)</th><th>Lançamentos</th><th>Total Gasto</th><th>% do Total</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="fornecedoresVazio" class="empty-state" style="display:none;">Nenhuma despesa registrada ainda.</div>
+    </div>
 
-                </button>
+    <div class="card">
+      <h2 id="tituloFormDespesa">Registrar Despesa</h2>
+      <input type="hidden" id="d_id">
+      <div class="grid">
+        <label class="field">Data <span class="req-star">*</span><input type="date" id="d_data"></label>
+        <label class="field">Empilhadeira <span class="req-star">*</span><input type="text" id="d_empilhadeira" placeholder="Ex.: EMP-04"></label>
+        <label class="field">Categoria <span class="req-star">*</span>
+          <select id="d_categoria">
+            <option>Manutenção</option>
+            <option>Gás/GLP</option>
+            <option>Pneus</option>
+            <option>Locação de Serviços</option>
+            <option>Outros</option>
+          </select>
+        </label>
+        <label class="field">Fornecedor <span class="req-star">*</span><input type="text" id="d_fornecedor" placeholder="Ex.: Nome do fornecedor"></label>
+        <label class="field">Valor (R$) <span class="req-star">*</span><input type="number" id="d_valor" step="0.01" min="0" placeholder="Ex.: 350.00"></label>
+        <label class="field">Nº Nota Fiscal <input type="text" id="d_nota"></label>
+      </div>
+      <label class="field" style="margin-top:12px;">Observações
+        <textarea class="obs-final" id="d_observacoes"></textarea>
+      </label>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="salvarDespesa()">Salvar Despesa</button>
+        <button class="btn btn-outline" onclick="limparFormDespesa()">Cancelar / Limpar</button>
+      </div>
+    </div>
 
+    <div class="card">
+      <h2>Despesas Registradas</h2>
+      <div class="table-wrap">
+        <table class="data-table" id="tabelaDespesas">
+          <thead>
+            <tr><th>Data</th><th>Empilhadeira</th><th>Categoria</th><th>Fornecedor</th><th>Valor</th><th>Nota</th><th>Ações</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="despesasVazio" class="empty-state" style="display:none;">Nenhuma despesa encontrada com os filtros selecionados.</div>
+    </div>
 
-                <!-- PRÊMIO -->
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="exportarRelatorioDespesasPDF()">📄 Exportar Relatório em PDF</button>
+    </div>
+  </section>
 
-                <div id="premio">
+</main>
 
-                    <h2>
-                        🚨 PARABÉNS, MEU JOVEM! 🚨
-                    </h2>
+<div id="printArea"></div>
 
-                    <p>
-                        Sua convocação foi confirmada.
-                    </p>
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Detalhes do Checklist</h3>
+      <button class="close-x" onclick="fecharModal()">&times;</button>
+    </div>
+    <div id="modalBody"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="modalPdfBtn">Exportar PDF</button>
+      <button class="btn btn-outline" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+</div>
 
-                    <p>
-                        Você irá para os
-                        <span class="destaque">
-                            CABOS
-                        </span>! 😂
-                    </p>
+<script>
+/* =========================================================
+   CONFIGURAÇÃO DAS SEÇÕES DO CHECKLIST
+   ========================================================= */
+const SECOES = [
+  { nome:"Inspeção Visual", itens:[
+    {label:"Estado geral da empilhadeira", critico:false},
+    {label:"Limpeza do equipamento", critico:false},
+    {label:"Pneus sem danos", critico:false},
+    {label:"Rodas e porcas fixadas", critico:false},
+    {label:"Garfos sem trincas ou deformações", critico:true},
+    {label:"Torre e correntes em bom estado", critico:false},
+    {label:"Mangueiras hidráulicas sem vazamentos", critico:true},
+    {label:"Cilindros hidráulicos sem vazamentos", critico:true},
+  ]},
+  { nome:"Sistema GLP", itens:[
+    {label:"Botijão corretamente fixado", critico:false},
+    {label:"Mangueira do GLP íntegra", critico:true},
+    {label:"Conexões sem vazamentos", critico:true},
+    {label:"Registro funcionando normalmente", critico:true},
+  ]},
+  { nome:"Sistema Mecânico", itens:[
+    {label:"Motor funcionando normalmente", critico:false},
+    {label:"Marcha lenta estável", critico:false},
+    {label:"Nível de água (radiador)", critico:false},
+    {label:"Nível de óleo do motor", critico:false},
+    {label:"Direção funcionando", critico:true},
+    {label:"Freio de serviço", critico:true},
+    {label:"Freio de estacionamento", critico:true},
+    {label:"Sistema hidráulico funcionando", critico:true},
+  ]},
+  { nome:"Sistema Elétrico", itens:[
+    {label:"Buzina", critico:true},
+    {label:"Faróis", critico:true},
+    {label:"Luz de ré", critico:true},
+    {label:"Alarme de ré", critico:true},
+    {label:"Giroflex", critico:true},
+    {label:"Painel de instrumentos", critico:false},
+  ]},
+  { nome:"Teste Operacional", itens:[
+    {label:"Deslocamento para frente", critico:false},
+    {label:"Deslocamento em marcha à ré", critico:false},
+    {label:"Elevação dos garfos", critico:true},
+    {label:"Inclinação da torre", critico:false},
+    {label:"Funcionamento sem ruídos anormais", critico:false},
+  ]},
+];
 
-                    <p>
-                        E não esqueça de preparar
-                        seu uniforme oficial.
-                    </p>
+/* =========================================================
+   CHECKLIST DE RECEBIMENTO PÓS-MANUTENÇÃO
+   ========================================================= */
+const DOC_ITENS_RECEBIMENTO = [
+  "Relatório técnico entregue",
+  "Ordem de Serviço entregue",
+  "Garantia informada",
+  "Relação das peças substituídas",
+  "Peças substituídas devolvidas",
+];
 
+const SECOES_RECEBIMENTO = [
+  { nome:"Inspeção Visual", itens:[
+    {label:"Equipamento limpo", critico:false},
+    {label:"Sem vazamento de óleo do motor", critico:true},
+    {label:"Sem vazamento hidráulico", critico:true},
+    {label:"Sem vazamento de GLP", critico:true},
+    {label:"Mangueiras em bom estado", critico:false},
+    {label:"Cilindros hidráulicos sem vazamentos", critico:true},
+    {label:"Correntes lubrificadas", critico:false},
+    {label:"Garfos sem danos", critico:true},
+    {label:"Torre sem folgas aparentes", critico:false},
+    {label:"Pneus em boas condições", critico:false},
+  ]},
+  { nome:"Sistema Mecânico", itens:[
+    {label:"Motor funcionando normalmente", critico:false},
+    {label:"Marcha lenta estável", critico:false},
+    {label:"Aceleração normal", critico:false},
+    {label:"Sem ruídos anormais", critico:false},
+    {label:"Nível de água (radiador)", critico:false},
+    {label:"Nível de óleo do motor", critico:false},
+    {label:"Freio de serviço", critico:true},
+    {label:"Freio de estacionamento", critico:true},
+    {label:"Direção funcionando corretamente", critico:true},
+  ]},
+  { nome:"Sistema Hidráulico", itens:[
+    {label:"Elevação normal", critico:false},
+    {label:"Descida normal", critico:false},
+    {label:"Inclinação da torre", critico:false},
+    {label:"Sem trancos", critico:false},
+    {label:"Sem perda de pressão", critico:true},
+  ]},
+  { nome:"Sistema Elétrico", itens:[
+    {label:"Faróis", critico:true},
+    {label:"Luz de ré", critico:true},
+    {label:"Buzina", critico:true},
+    {label:"Alarme de ré", critico:true},
+    {label:"Giroflex", critico:true},
+    {label:"Painel de instrumentos", critico:false},
+  ]},
+  { nome:"Teste Operacional", itens:[
+    {label:"Deslocamento para frente", critico:false},
+    {label:"Deslocamento em marcha à ré", critico:false},
+    {label:"Direção durante deslocamento", critico:false},
+    {label:"Frenagem", critico:true},
+    {label:"Elevação com carga", critico:true},
+    {label:"Inclinação da torre com carga", critico:false},
+    {label:"Funcionamento geral aprovado", critico:true},
+  ]},
+];
 
-                    <div class="equipamento">
+const LS_CHECKLISTS = "gp_control_checklists_empilhadeira";
+const LS_MANUTENCOES = "gp_control_manutencoes_empilhadeira";
+const LS_DESPESAS = "gp_control_despesas_empilhadeira";
+const LS_RECEBIMENTOS = "gp_control_recebimentos_pos_manutencao";
 
-                        <div class="item">
+let checklists = carregar(LS_CHECKLISTS);
+let manutencoes = carregar(LS_MANUTENCOES);
+let despesas = carregar(LS_DESPESAS);
+let recebimentos = carregar(LS_RECEBIMENTOS);
 
-                            <h3>
-                                🧢 Boné árabe
-                            </h3>
+function carregar(chave){
+  try{ return JSON.parse(localStorage.getItem(chave)) || []; }
+  catch(e){ return []; }
+}
+function persistirChecklists(){
+  try{ localStorage.setItem(LS_CHECKLISTS, JSON.stringify(checklists)); }
+  catch(e){ alert('Não foi possível salvar os dados neste navegador. Se estiver abrindo o arquivo diretamente (file://), tente abrir pelo Chrome/Safari normalmente ou hospedar o arquivo em um servidor local.'); }
+}
+function persistirManutencoes(){
+  try{ localStorage.setItem(LS_MANUTENCOES, JSON.stringify(manutencoes)); }
+  catch(e){ alert('Não foi possível salvar os dados neste navegador. Se estiver abrindo o arquivo diretamente (file://), tente abrir pelo Chrome/Safari normalmente ou hospedar o arquivo em um servidor local.'); }
+}
+function persistirDespesas(){
+  try{ localStorage.setItem(LS_DESPESAS, JSON.stringify(despesas)); }
+  catch(e){ alert('Não foi possível salvar os dados neste navegador. Se estiver abrindo o arquivo diretamente (file://), tente abrir pelo Chrome/Safari normalmente ou hospedar o arquivo em um servidor local.'); }
+}
+function persistirRecebimentos(){
+  try{ localStorage.setItem(LS_RECEBIMENTOS, JSON.stringify(recebimentos)); }
+  catch(e){ alert('Não foi possível salvar os dados neste navegador. Se estiver abrindo o arquivo diretamente (file://), tente abrir pelo Chrome/Safari normalmente ou hospedar o arquivo em um servidor local.'); }
+}
 
-                            <p>
-                                Item obrigatório
-                                para a missão.
-                            </p>
+/* =========================================================
+   NAVEGAÇÃO ENTRE ABAS
+   ========================================================= */
+function mudarAba(nome){
+  document.querySelectorAll('main > section').forEach(s => s.hidden = true);
+  document.getElementById('tab-'+nome).hidden = false;
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===nome));
+  try{
+    if(nome==='historico') renderHistorico();
+    if(nome==='manutencao'){ renderManutencoes(); renderHistoricoRecebimento(); }
+    if(nome==='despesas') renderDespesas();
+  } catch(e){
+    mostrarErroGlobal('aba ' + nome + ': ' + e.message);
+  }
+}
 
-                        </div>
+function mudarSubAbaManutencao(nome){
+  document.getElementById('subtab-eventos').hidden = (nome !== 'eventos');
+  document.getElementById('subtab-recebimento').hidden = (nome !== 'recebimento');
+  document.querySelectorAll('.subtab-btn').forEach(b => b.classList.toggle('active', b.dataset.subtab===nome));
+  try{
+    if(nome==='recebimento') renderHistoricoRecebimento();
+  } catch(e){
+    mostrarErroGlobal('sub-aba recebimento: ' + e.message);
+  }
+}
 
+/* =========================================================
+   RENDERIZAÇÃO DO FORMULÁRIO DE ITENS
+   ========================================================= */
+function renderizarItens(){
+  const container = document.getElementById('itensContainer');
+  // remove antigas seções (mantém apenas o h2 e helper-text, que são os 2 primeiros filhos)
+  Array.from(container.querySelectorAll('.section-title, .section-body')).forEach(el => el.remove());
 
-                        <div class="item">
+  SECOES.forEach((secao, sIdx) => {
+    try{
+      const title = document.createElement('div');
+      title.className = 'section-title';
+      title.textContent = secao.nome;
+      container.appendChild(title);
 
-                            <h3>
-                                👕 Camisa longa
-                            </h3>
+      const body = document.createElement('div');
+      body.className = 'section-body';
 
-                            <p>
-                                Não esqueça de levar
-                                a camisa longa.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <p class="criador">
-
-                        Criado especialmente por
-                        Matheus Ivando 😎
-
-                    </p>
-
-                </div>
-
+      secao.itens.forEach((item, iIdx) => {
+        try{
+          const rowId = `s${sIdx}_i${iIdx}`;
+          const row = document.createElement('div');
+          row.className = 'item-row' + (item.critico ? ' critico' : '');
+          row.dataset.rowId = rowId;
+          row.dataset.critico = item.critico ? '1' : '0';
+          row.dataset.label = item.label;
+          row.innerHTML = `
+            <div class="item-label">${item.label} ${item.critico ? '<span class="tag-critico">Crítico</span>' : ''}</div>
+            <div class="opt-group" style="display:flex; gap:10px;">
+              <label class="opt conforme"><input type="radio" name="status_${rowId}" value="conforme" onchange="onItemChange(this)"> Conforme</label>
             </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- RODAPÉ -->
-
-    <footer>
-
-        <p>
-            © 2026 Control GPS
-        </p>
-
-        <p class="criador">
-            Sistema criado por Matheus Ivando
-        </p>
-
-    </footer>
-
-
-    <!-- JAVASCRIPT -->
-
-    <script>
-
-        function mostrarPremio() {
-
-            const premio =
-                document.getElementById("premio");
-
-            premio.style.display = "block";
-
-            premio.scrollIntoView({
-                behavior: "smooth"
-            });
-
+            <div class="opt-group" style="display:flex; gap:10px;">
+              <label class="opt naoconforme"><input type="radio" name="status_${rowId}" value="nao_conforme" onchange="onItemChange(this)"> Não Conforme</label>
+            </div>
+            <textarea placeholder="Observações..." data-obs="${rowId}"></textarea>
+          `;
+          body.appendChild(row);
+        } catch(eItem){
+          mostrarErroGlobal('item "' + (item && item.label) + '": ' + eItem.message);
         }
+      });
 
-    </script>
+      container.appendChild(body);
+    } catch(eSecao){
+      mostrarErroGlobal('seção "' + (secao && secao.nome) + '": ' + eSecao.message);
+    }
+  });
+}
 
+function onItemChange(inputEl){
+  const row = inputEl.closest('.item-row');
+  row.querySelector('.opt.conforme').classList.toggle('checked', inputEl.value==='conforme');
+  row.querySelector('.opt.naoconforme').classList.toggle('checked', inputEl.value==='nao_conforme');
+  avaliarCriticos();
+}
+
+let parecerForcadoPeloSistema = false;
+
+function avaliarCriticos(){
+  const rows = document.querySelectorAll('#itensContainer .item-row');
+  let temCriticoNaoConforme = false;
+  rows.forEach(row => {
+    if(row.dataset.critico === '1'){
+      const checked = row.querySelector('input[value="nao_conforme"]:checked');
+      if(checked) temCriticoNaoConforme = true;
+    }
+  });
+  const alerta = document.getElementById('alertaCritico');
+  const optLiberado = document.getElementById('optLiberado');
+  const inputLiberado = optLiberado.querySelector('input');
+  const optNaoLiberado = document.getElementById('optNaoLiberado');
+  const inputNaoLiberado = optNaoLiberado.querySelector('input');
+
+  alerta.style.display = temCriticoNaoConforme ? 'flex' : 'none';
+  inputLiberado.disabled = temCriticoNaoConforme;
+  optLiberado.classList.toggle('disabled', temCriticoNaoConforme);
+
+  if(temCriticoNaoConforme){
+    inputNaoLiberado.checked = true;
+    parecerForcadoPeloSistema = true;
+  } else if(parecerForcadoPeloSistema){
+    // A restrição crítica foi removida: desfaz a marcação automática para que
+    // o usuário possa escolher livremente o parecer final novamente.
+    inputNaoLiberado.checked = false;
+    parecerForcadoPeloSistema = false;
+  }
+  atualizarVisualParecer();
+  return temCriticoNaoConforme;
+}
+
+function atualizarVisualParecer(){
+  const marcado = document.querySelector('input[name="parecer"]:checked');
+  const liberado = !!marcado && marcado.value === 'liberado';
+  const naoLiberado = !!marcado && marcado.value === 'nao_liberado';
+  document.getElementById('optLiberado').classList.toggle('selected', liberado);
+  document.getElementById('optNaoLiberado').classList.toggle('selected', naoLiberado);
+}
+
+function onParecerChangeUsuario(){
+  // Disparado apenas por clique real do usuário nas opções de parecer final.
+  parecerForcadoPeloSistema = false;
+  atualizarVisualParecer();
+}
+
+/* =========================================================
+   COLETA / VALIDAÇÃO / LIMPEZA DO FORMULÁRIO
+   ========================================================= */
+function coletarChecklist(){
+  const rows = document.querySelectorAll('#itensContainer .item-row');
+  const respostas = [];
+  let faltando = 0;
+  rows.forEach(row => {
+    const rowId = row.dataset.rowId;
+    const statusEl = row.querySelector(`input[name="status_${rowId}"]:checked`);
+    const obs = row.querySelector(`textarea[data-obs="${rowId}"]`).value.trim();
+    if(!statusEl) faltando++;
+    respostas.push({
+      label: row.dataset.label,
+      critico: row.dataset.critico === '1',
+      status: statusEl ? statusEl.value : null,
+      obs
+    });
+  });
+
+  const parecerEl = document.querySelector('input[name="parecer"]:checked');
+
+  return {
+    respostas, faltando,
+    parecer: parecerEl ? parecerEl.value : null,
+    dados: {
+      data: document.getElementById('f_data').value,
+      os: document.getElementById('f_os').value.trim(),
+      empilhadeira: document.getElementById('f_empilhadeira').value.trim(),
+      matricula: document.getElementById('f_matricula').value.trim(),
+      horario: document.getElementById('f_horario').value,
+      horimetro: document.getElementById('f_horimetro').value.trim(),
+      operador: document.getElementById('f_operador').value.trim(),
+      naoconformidade: document.getElementById('f_naoconformidade').value.trim(),
+      op_nome: document.getElementById('f_op_nome').value.trim(),
+      op_assinatura: document.getElementById('f_op_assinatura').value.trim(),
+      sup_nome: document.getElementById('f_sup_nome').value.trim(),
+      sup_assinatura: document.getElementById('f_sup_assinatura').value.trim(),
+    }
+  };
+}
+
+function salvarChecklist(exportarPdf){
+  const coleta = coletarChecklist();
+
+  if(!coleta.dados.empilhadeira || !coleta.dados.operador || !coleta.dados.horimetro){
+    alert('Preencha ao menos: Empilhadeira, Operador e Horímetro antes de salvar.');
+    return;
+  }
+  if(coleta.faltando > 0){
+    if(!confirm(`${coleta.faltando} item(ns) de inspeção ainda não foram marcados. Deseja salvar mesmo assim?`)) return;
+  }
+  if(!coleta.parecer){
+    alert('Selecione o Parecer Final (liberado ou não liberado) antes de salvar.');
+    return;
+  }
+
+  const registro = {
+    id: 'CL-' + Date.now(),
+    criadoEm: new Date().toISOString(),
+    ...coleta.dados,
+    itens: coleta.respostas,
+    parecer: coleta.parecer,
+  };
+
+  checklists.unshift(registro);
+  persistirChecklists();
+  alert('Checklist salvo com sucesso. Registro: ' + registro.id);
+
+  if(exportarPdf) exportarChecklistPDF(registro);
+  limparFormulario();
+}
+
+function limparFormulario(){
+  document.querySelectorAll('#itensContainer input[type=radio]').forEach(r => r.checked=false);
+  document.querySelectorAll('#itensContainer textarea').forEach(t => t.value='');
+  document.querySelectorAll('#itensContainer .opt').forEach(o => o.classList.remove('checked'));
+  document.getElementById('alertaCritico').style.display='none';
+  parecerForcadoPeloSistema = false;
+  document.querySelectorAll('input[name=parecer]').forEach(r=>r.checked=false);
+  document.getElementById('optLiberado').classList.remove('selected','disabled');
+  document.getElementById('optLiberado').querySelector('input').disabled=false;
+  document.getElementById('optNaoLiberado').classList.remove('selected');
+  ['f_empilhadeira','f_matricula','f_horario','f_horimetro','f_operador','f_naoconformidade','f_op_nome','f_op_assinatura','f_sup_nome','f_sup_assinatura'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.getElementById('f_data').value = hojeISO();
+  document.getElementById('f_os').value = gerarNumeroOS();
+}
+
+function hojeISO(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+function gerarNumeroOS(){
+  return 'OS-' + Date.now().toString().slice(-8);
+}
+
+function regenerarOS(){
+  document.getElementById('f_os').value = gerarNumeroOS();
+}
+
+/* =========================================================
+   EXPORTAÇÃO EM PDF (via impressão do navegador)
+   ========================================================= */
+function formatarDataBR(iso){
+  if(!iso) return '—';
+  const [y,m,d] = iso.split('-');
+  return d && m && y ? `${d}/${m}/${y}` : iso;
+}
+
+function montarHtmlChecklist(reg){
+  let secoesHtml = '';
+  const nomesSecoes = [...new Set(SECOES.map(s=>s.nome))];
+  let cursor = 0;
+  SECOES.forEach(secao => {
+    let linhas = '';
+    secao.itens.forEach(() => {
+      const r = reg.itens[cursor];
+      const statusTxt = r.status === 'conforme' ? '✔ Conforme' : (r.status === 'nao_conforme' ? '✘ Não Conforme' : '— Não avaliado');
+      linhas += `<tr>
+        <td>${r.label}${r.critico ? ' <b>(Crítico)</b>' : ''}</td>
+        <td>${statusTxt}</td>
+        <td>${r.obs ? r.obs.replace(/</g,'&lt;') : ''}</td>
+      </tr>`;
+      cursor++;
+    });
+    secoesHtml += `<div class="pf-section">${secao.nome}</div>
+      <table class="pf-items">
+        <thead><tr><th>Item</th><th>Status</th><th>Observações</th></tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>`;
+  });
+
+  const parecerLiberado = reg.parecer === 'liberado';
+
+  return `
+    <div class="pf-doc">
+      <h1>Checklist Diário de Pré-Operação – Empilhadeira GLP</h1>
+      <div class="pf-sub">Control Construções – Grupo GPS &nbsp;|&nbsp; Registro: ${reg.id}</div>
+      <table class="pf-header">
+        <tr>
+          <td><b>Data:</b> ${formatarDataBR(reg.data)}</td>
+          <td><b>Nº O.S.:</b> ${reg.os || '—'}</td>
+          <td><b>Empilhadeira:</b> ${reg.empilhadeira || '—'}</td>
+        </tr>
+        <tr>
+          <td><b>Matrícula:</b> ${reg.matricula || '—'}</td>
+          <td><b>Horário:</b> ${reg.horario || '—'}</td>
+          <td><b>Horímetro:</b> ${reg.horimetro || '—'}</td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>Operador:</b> ${reg.operador || '—'}</td>
+        </tr>
+      </table>
+
+      ${secoesHtml}
+
+      <div class="pf-parecer ${parecerLiberado ? 'ok' : 'no'}">
+        ${parecerLiberado ? '☑ EQUIPAMENTO LIBERADO PARA OPERAÇÃO' : '☒ EQUIPAMENTO NÃO LIBERADO PARA OPERAÇÃO'}
+      </div>
+      ${reg.naoconformidade ? `<p><b>Descrição da não conformidade:</b><br>${reg.naoconformidade.replace(/</g,'&lt;')}</p>` : ''}
+
+      <p style="font-size:10px; margin-top:10px;"><b>Importante:</b> caso qualquer item crítico (freios, direção, vazamento de GLP, sistema hidráulico, garfos ou dispositivos de segurança) seja identificado como não conforme, a empilhadeira deve ser imediatamente interditada, com acionamento imediato da liderança de Suprimentos antes de qualquer utilização.</p>
+
+      <div class="pf-sign">
+        <div>${reg.op_nome || reg.operador || ''}<br>Operador</div>
+        <div>${reg.sup_nome || ''}<br>Supervisor / Responsável</div>
+      </div>
+    </div>
+  `;
+}
+
+function exportarChecklistPDF(reg){
+  const printArea = document.getElementById('printArea');
+  printArea.innerHTML = montarHtmlChecklist(reg);
+  document.title = 'Checklist_' + (reg.empilhadeira || 'Empilhadeira') + '_' + reg.data;
+  window.print();
+}
+
+/* =========================================================
+   HISTÓRICO
+   ========================================================= */
+function popularFiltroEmpilhadeiras(){
+  const select = document.getElementById('filtroEmpilhadeira');
+  const atual = select.value;
+  const nomes = [...new Set(checklists.map(c=>c.empilhadeira).filter(Boolean))].sort();
+  select.innerHTML = '<option value="">Todas</option>' + nomes.map(n=>`<option value="${n}">${n}</option>`).join('');
+  select.value = atual;
+}
+
+function renderHistorico(){
+  popularFiltroEmpilhadeiras();
+  const empF = document.getElementById('filtroEmpilhadeira').value;
+  const parF = document.getElementById('filtroParecer').value;
+  const deF = document.getElementById('filtroDe').value;
+  const ateF = document.getElementById('filtroAte').value;
+  const opF = document.getElementById('filtroOperador').value.toLowerCase();
+
+  const filtrados = checklists.filter(c => {
+    if(empF && c.empilhadeira !== empF) return false;
+    if(parF && c.parecer !== parF) return false;
+    if(deF && c.data < deF) return false;
+    if(ateF && c.data > ateF) return false;
+    if(opF && !(c.operador||'').toLowerCase().includes(opF)) return false;
+    return true;
+  });
+
+  const tbody = document.querySelector('#tabelaHistorico tbody');
+  tbody.innerHTML = '';
+  document.getElementById('historicoVazio').style.display = filtrados.length ? 'none' : 'block';
+
+  filtrados.forEach(c => {
+    const tr = document.createElement('tr');
+    const badge = c.parecer === 'liberado'
+      ? '<span class="badge liberado">Liberado</span>'
+      : '<span class="badge naoliberado">Não liberado</span>';
+    tr.innerHTML = `
+      <td>${formatarDataBR(c.data)} ${c.horario||''}</td>
+      <td>${c.empilhadeira||'—'}</td>
+      <td>${c.operador||'—'}</td>
+      <td>${c.horimetro||'—'}</td>
+      <td>${badge}</td>
+      <td>
+        <button class="icon-btn" title="Ver" onclick="verChecklist('${c.id}')">🔍</button>
+        <button class="icon-btn" title="Exportar PDF" onclick="exportarChecklistPDF(buscarChecklist('${c.id}'))">📄</button>
+        <button class="icon-btn" title="Excluir" onclick="excluirChecklist('${c.id}')">🗑️</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function buscarChecklist(id){ return checklists.find(c=>c.id===id); }
+
+function excluirChecklist(id){
+  if(!confirm('Excluir este checklist do histórico? Esta ação não pode ser desfeita.')) return;
+  checklists = checklists.filter(c=>c.id!==id);
+  persistirChecklists();
+  renderHistorico();
+}
+
+function verChecklist(id){
+  const reg = buscarChecklist(id);
+  if(!reg) return;
+  document.querySelector('.modal-header h3').textContent = 'Checklist — ' + (reg.empilhadeira||'') + ' — ' + formatarDataBR(reg.data);
+  const parecerLiberado = reg.parecer === 'liberado';
+  let linhasHtml = '';
+  reg.itens.forEach(it => {
+    const cls = it.status === 'conforme' ? 'ok' : (it.status==='nao_conforme' ? 'no' : '');
+    const txt = it.status === 'conforme' ? 'Conforme' : (it.status==='nao_conforme' ? 'Não Conforme' : 'Não avaliado');
+    linhasHtml += `<tr><td>${it.label}${it.critico?' <b>(Crítico)</b>':''}</td><td class="status-pill ${cls}">${txt}</td><td>${it.obs||''}</td></tr>`;
+  });
+  document.getElementById('modalBody').innerHTML = `
+    <div class="kv">
+      <div><b>Empilhadeira</b>${reg.empilhadeira||'—'}</div>
+      <div><b>Matrícula</b>${reg.matricula||'—'}</div>
+      <div><b>Operador</b>${reg.operador||'—'}</div>
+      <div><b>Horímetro</b>${reg.horimetro||'—'}</div>
+      <div><b>Data / Horário</b>${formatarDataBR(reg.data)} ${reg.horario||''}</div>
+      <div><b>Nº O.S.</b>${reg.os||'—'}</div>
+    </div>
+    <table class="mini-table">
+      <thead><tr><th>Item</th><th>Status</th><th>Observações</th></tr></thead>
+      <tbody>${linhasHtml}</tbody>
+    </table>
+    <div class="pf-parecer ${parecerLiberado?'ok':'no'}" style="border-radius:6px;">
+      ${parecerLiberado ? 'EQUIPAMENTO LIBERADO PARA OPERAÇÃO' : 'EQUIPAMENTO NÃO LIBERADO PARA OPERAÇÃO'}
+    </div>
+    ${reg.naoconformidade ? `<p style="font-size:12.5px;"><b>Não conformidade:</b> ${reg.naoconformidade}</p>` : ''}
+  `;
+  document.getElementById('modalPdfBtn').onclick = () => exportarChecklistPDF(reg);
+  document.getElementById('modalOverlay').hidden = false;
+}
+
+function fecharModal(){ document.getElementById('modalOverlay').hidden = true; }
+
+/* =========================================================
+   MANUTENÇÃO PROGRAMADA
+   ========================================================= */
+function calcularStatusManutencao(m){
+  if(m.data_realizada) return 'Concluída';
+  if(m.data_agendada && m.data_agendada < hojeISO()) return 'Atrasada';
+  return 'Agendada';
+}
+
+function popularFiltroManEmpilhadeiras(){
+  const select = document.getElementById('filtroManEmpilhadeira');
+  const atual = select.value;
+  const nomes = [...new Set(manutencoes.map(m=>m.empilhadeira).filter(Boolean))].sort();
+  select.innerHTML = '<option value="">Todas</option>' + nomes.map(n=>`<option value="${n}">${n}</option>`).join('');
+  select.value = atual;
+}
+
+function renderStatsManutencao(){
+  const total = manutencoes.length;
+  const atrasadas = manutencoes.filter(m=>calcularStatusManutencao(m)==='Atrasada').length;
+  const em7dias = manutencoes.filter(m=>{
+    if(m.data_realizada) return false;
+    const hoje = new Date(hojeISO());
+    const alvo = new Date(m.data_agendada);
+    const diff = (alvo - hoje) / (1000*60*60*24);
+    return diff >= 0 && diff <= 7;
+  }).length;
+  const concluidas = manutencoes.filter(m=>calcularStatusManutencao(m)==='Concluída').length;
+
+  document.getElementById('statsManutencao').innerHTML = `
+    <div class="stat-card"><div class="num">${total}</div><div class="lbl">Eventos registrados</div></div>
+    <div class="stat-card"><div class="num" style="color:${atrasadas>0?'#E24C4C':'var(--yellow)'}">${atrasadas}</div><div class="lbl">Atrasadas</div></div>
+    <div class="stat-card"><div class="num">${em7dias}</div><div class="lbl">Próximas 7 dias</div></div>
+    <div class="stat-card"><div class="num">${concluidas}</div><div class="lbl">Concluídas</div></div>
+  `;
+}
+
+function renderManutencoes(){
+  popularFiltroManEmpilhadeiras();
+  renderStatsManutencao();
+  const empF = document.getElementById('filtroManEmpilhadeira').value;
+  const statusF = document.getElementById('filtroManStatus').value;
+
+  const filtradas = manutencoes.filter(m => {
+    if(empF && m.empilhadeira !== empF) return false;
+    if(statusF && calcularStatusManutencao(m) !== statusF) return false;
+    return true;
+  }).sort((a,b)=> (a.data_agendada||'').localeCompare(b.data_agendada||''));
+
+  const tbody = document.querySelector('#tabelaManutencao tbody');
+  tbody.innerHTML = '';
+  document.getElementById('manutencaoVazio').style.display = filtradas.length ? 'none' : 'block';
+
+  filtradas.forEach(m => {
+    const status = calcularStatusManutencao(m);
+    const badgeClass = status==='Concluída' ? 'concluida' : (status==='Atrasada' ? 'atrasada' : 'agendada');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${m.empilhadeira}</td>
+      <td>${m.tipo}</td>
+      <td>${formatarDataBR(m.data_agendada)}</td>
+      <td>${m.data_realizada ? formatarDataBR(m.data_realizada) : '—'}</td>
+      <td>${m.responsavel||'—'}</td>
+      <td><span class="badge ${badgeClass}">${status}</span></td>
+      <td>
+        <button class="icon-btn" title="Editar" onclick="editarManutencao('${m.id}')">✏️</button>
+        <button class="icon-btn" title="Excluir" onclick="excluirManutencao('${m.id}')">🗑️</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function salvarManutencao(){
+  const id = document.getElementById('m_id').value;
+  const empilhadeira = document.getElementById('m_empilhadeira').value.trim();
+  const data_agendada = document.getElementById('m_data_agendada').value;
+
+  if(!empilhadeira || !data_agendada){
+    alert('Preencha ao menos: Empilhadeira e Data Agendada.');
+    return;
+  }
+
+  const registro = {
+    id: id || ('MAN-' + Date.now()),
+    empilhadeira,
+    tipo: document.getElementById('m_tipo').value,
+    responsavel: document.getElementById('m_responsavel').value.trim(),
+    data_agendada,
+    data_realizada: document.getElementById('m_data_realizada').value,
+    horimetro: document.getElementById('m_horimetro').value.trim(),
+    observacoes: document.getElementById('m_observacoes').value.trim(),
+    criadoEm: new Date().toISOString()
+  };
+
+  if(id){
+    manutencoes = manutencoes.map(m => m.id===id ? registro : m);
+  } else {
+    manutencoes.unshift(registro);
+  }
+  persistirManutencoes();
+  limparFormManutencao();
+  renderManutencoes();
+}
+
+function editarManutencao(id){
+  const m = manutencoes.find(x=>x.id===id);
+  if(!m) return;
+  document.getElementById('m_id').value = m.id;
+  document.getElementById('m_empilhadeira').value = m.empilhadeira;
+  document.getElementById('m_tipo').value = m.tipo;
+  document.getElementById('m_responsavel').value = m.responsavel||'';
+  document.getElementById('m_data_agendada').value = m.data_agendada||'';
+  document.getElementById('m_data_realizada').value = m.data_realizada||'';
+  document.getElementById('m_horimetro').value = m.horimetro||'';
+  document.getElementById('m_observacoes').value = m.observacoes||'';
+  document.getElementById('tituloFormManutencao').textContent = 'Editar Evento de Manutenção';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function limparFormManutencao(){
+  document.getElementById('m_id').value = '';
+  document.getElementById('m_empilhadeira').value = '';
+  document.getElementById('m_tipo').value = 'Preventiva';
+  document.getElementById('m_responsavel').value = '';
+  document.getElementById('m_data_agendada').value = '';
+  document.getElementById('m_data_realizada').value = '';
+  document.getElementById('m_horimetro').value = '';
+  document.getElementById('m_observacoes').value = '';
+  document.getElementById('tituloFormManutencao').textContent = 'Registrar Evento de Manutenção';
+}
+
+function excluirManutencao(id){
+  if(!confirm('Excluir este evento de manutenção?')) return;
+  manutencoes = manutencoes.filter(m=>m.id!==id);
+  persistirManutencoes();
+  renderManutencoes();
+}
+
+/* =========================================================
+   CONTROLE DE DESPESAS
+   ========================================================= */
+const CATEGORIA_CLASSE = {
+  "Manutenção": "cat-manutencao",
+  "Gás/GLP": "cat-gas",
+  "Pneus": "cat-pneus",
+  "Locação de Serviços": "cat-locacao",
+  "Outros": "cat-outros"
+};
+const CATEGORIA_COR = {
+  "Manutenção": "#1D4E89",
+  "Gás/GLP": "#C79A00",
+  "Pneus": "#5B2D91",
+  "Locação de Serviços": "#1F7A4D",
+  "Outros": "#6B7280"
+};
+
+function formatarMoeda(valor){
+  const n = Number(valor) || 0;
+  return n.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+}
+
+function popularFiltrosDespesas(){
+  const selEmp = document.getElementById('filtroDespEmpilhadeira');
+  const selCat = document.getElementById('filtroDespCategoria');
+  const selForn = document.getElementById('filtroDespFornecedor');
+  const atualEmp = selEmp.value, atualCat = selCat.value, atualForn = selForn.value;
+
+  const emps = [...new Set(despesas.map(d=>d.empilhadeira).filter(Boolean))].sort();
+  const cats = [...new Set(despesas.map(d=>d.categoria).filter(Boolean))].sort();
+  const forns = [...new Set(despesas.map(d=>d.fornecedor).filter(Boolean))].sort();
+
+  selEmp.innerHTML = '<option value="">Todas</option>' + emps.map(n=>`<option value="${n}">${n}</option>`).join('');
+  selCat.innerHTML = '<option value="">Todas</option>' + cats.map(n=>`<option value="${n}">${n}</option>`).join('');
+  selForn.innerHTML = '<option value="">Todos</option>' + forns.map(n=>`<option value="${n}">${n}</option>`).join('');
+
+  selEmp.value = atualEmp; selCat.value = atualCat; selForn.value = atualForn;
+}
+
+function obterDespesasFiltradas(){
+  const empF = document.getElementById('filtroDespEmpilhadeira').value;
+  const catF = document.getElementById('filtroDespCategoria').value;
+  const fornF = document.getElementById('filtroDespFornecedor').value;
+  const deF = document.getElementById('filtroDespDe').value;
+  const ateF = document.getElementById('filtroDespAte').value;
+
+  return despesas.filter(d => {
+    if(empF && d.empilhadeira !== empF) return false;
+    if(catF && d.categoria !== catF) return false;
+    if(fornF && d.fornecedor !== fornF) return false;
+    if(deF && d.data < deF) return false;
+    if(ateF && d.data > ateF) return false;
+    return true;
+  });
+}
+
+function renderStatsDespesas(lista){
+  const total = lista.reduce((s,d)=>s+(Number(d.valor)||0), 0);
+  const porCategoria = {};
+  lista.forEach(d => { porCategoria[d.categoria] = (porCategoria[d.categoria]||0) + (Number(d.valor)||0); });
+
+  let html = `<div class="stat-card"><div class="num">${formatarMoeda(total)}</div><div class="lbl">Total Geral</div></div>`;
+  ["Manutenção","Gás/GLP","Pneus","Locação de Serviços"].forEach(cat => {
+    html += `<div class="stat-card"><div class="num" style="color:${CATEGORIA_COR[cat]}">${formatarMoeda(porCategoria[cat]||0)}</div><div class="lbl">${cat}</div></div>`;
+  });
+  document.getElementById('statsDespesas').innerHTML = html;
+}
+
+function renderGraficoCategorias(lista){
+  const porCategoria = {};
+  lista.forEach(d => { porCategoria[d.categoria] = (porCategoria[d.categoria]||0) + (Number(d.valor)||0); });
+  const categorias = Object.keys(porCategoria);
+  const maxValor = Math.max(1, ...categorias.map(c=>porCategoria[c]));
+
+  const container = document.getElementById('graficoCategorias');
+  if(categorias.length === 0){
+    container.innerHTML = '<div class="empty-state">Nenhuma despesa registrada ainda.</div>';
+    return;
+  }
+  container.innerHTML = categorias
+    .sort((a,b)=>porCategoria[b]-porCategoria[a])
+    .map(cat => {
+      const valor = porCategoria[cat];
+      const pct = Math.max(4, Math.round((valor/maxValor)*100));
+      const cor = CATEGORIA_COR[cat] || 'var(--steel)';
+      return `<div class="bar-chart-row">
+        <div class="bar-label">${cat}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${cor};"></div></div>
+        <div class="bar-value">${formatarMoeda(valor)}</div>
+      </div>`;
+    }).join('');
+}
+
+function renderRankingFornecedores(lista){
+  const totalGeral = lista.reduce((s,d)=>s+(Number(d.valor)||0), 0);
+  const porFornecedor = {};
+  lista.forEach(d => {
+    if(!d.fornecedor) return;
+    if(!porFornecedor[d.fornecedor]) porFornecedor[d.fornecedor] = { total:0, qtd:0, categorias:new Set() };
+    porFornecedor[d.fornecedor].total += (Number(d.valor)||0);
+    porFornecedor[d.fornecedor].qtd += 1;
+    porFornecedor[d.fornecedor].categorias.add(d.categoria);
+  });
+
+  const linhas = Object.keys(porFornecedor)
+    .map(nome => ({ nome, ...porFornecedor[nome] }))
+    .sort((a,b)=>b.total-a.total);
+
+  const tbody = document.querySelector('#tabelaFornecedores tbody');
+  tbody.innerHTML = '';
+  document.getElementById('fornecedoresVazio').style.display = linhas.length ? 'none' : 'block';
+
+  linhas.forEach(f => {
+    const pct = totalGeral > 0 ? ((f.total/totalGeral)*100).toFixed(1) : '0.0';
+    const catsHtml = [...f.categorias].map(c=>`<span class="cat-badge ${CATEGORIA_CLASSE[c]||'cat-outros'}">${c}</span>`).join(' ');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${f.nome}</td>
+      <td>${catsHtml}</td>
+      <td>${f.qtd}</td>
+      <td>${formatarMoeda(f.total)}</td>
+      <td>${pct}%</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderTabelaDespesas(lista){
+  const ordenadas = [...lista].sort((a,b)=> (b.data||'').localeCompare(a.data||''));
+  const tbody = document.querySelector('#tabelaDespesas tbody');
+  tbody.innerHTML = '';
+  document.getElementById('despesasVazio').style.display = ordenadas.length ? 'none' : 'block';
+
+  ordenadas.forEach(d => {
+    const tr = document.createElement('tr');
+    const catBadge = `<span class="cat-badge ${CATEGORIA_CLASSE[d.categoria]||'cat-outros'}">${d.categoria}</span>`;
+    tr.innerHTML = `
+      <td>${formatarDataBR(d.data)}</td>
+      <td>${d.empilhadeira||'—'}</td>
+      <td>${catBadge}</td>
+      <td>${d.fornecedor||'—'}</td>
+      <td>${formatarMoeda(d.valor)}</td>
+      <td>${d.nota||'—'}</td>
+      <td>
+        <button class="icon-btn" title="Editar" onclick="editarDespesa('${d.id}')">✏️</button>
+        <button class="icon-btn" title="Excluir" onclick="excluirDespesa('${d.id}')">🗑️</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderDespesas(){
+  popularFiltrosDespesas();
+  const lista = obterDespesasFiltradas();
+  renderStatsDespesas(lista);
+  renderGraficoCategorias(lista);
+  renderRankingFornecedores(lista);
+  renderTabelaDespesas(lista);
+}
+
+function salvarDespesa(){
+  const id = document.getElementById('d_id').value;
+  const data = document.getElementById('d_data').value;
+  const empilhadeira = document.getElementById('d_empilhadeira').value.trim();
+  const categoria = document.getElementById('d_categoria').value;
+  const fornecedor = document.getElementById('d_fornecedor').value.trim();
+  const valor = document.getElementById('d_valor').value;
+
+  if(!data || !empilhadeira || !fornecedor || !valor){
+    alert('Preencha ao menos: Data, Empilhadeira, Fornecedor e Valor.');
+    return;
+  }
+
+  const registro = {
+    id: id || ('DESP-' + Date.now()),
+    data, empilhadeira, categoria, fornecedor,
+    valor: Number(valor),
+    nota: document.getElementById('d_nota').value.trim(),
+    observacoes: document.getElementById('d_observacoes').value.trim(),
+    criadoEm: new Date().toISOString()
+  };
+
+  if(id){
+    despesas = despesas.map(d => d.id===id ? registro : d);
+  } else {
+    despesas.unshift(registro);
+  }
+  persistirDespesas();
+  limparFormDespesa();
+  renderDespesas();
+}
+
+function editarDespesa(id){
+  const d = despesas.find(x=>x.id===id);
+  if(!d) return;
+  document.getElementById('d_id').value = d.id;
+  document.getElementById('d_data').value = d.data||'';
+  document.getElementById('d_empilhadeira').value = d.empilhadeira||'';
+  document.getElementById('d_categoria').value = d.categoria||'Manutenção';
+  document.getElementById('d_fornecedor').value = d.fornecedor||'';
+  document.getElementById('d_valor').value = d.valor||'';
+  document.getElementById('d_nota').value = d.nota||'';
+  document.getElementById('d_observacoes').value = d.observacoes||'';
+  document.getElementById('tituloFormDespesa').textContent = 'Editar Despesa';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function limparFormDespesa(){
+  document.getElementById('d_id').value = '';
+  document.getElementById('d_data').value = hojeISO();
+  document.getElementById('d_empilhadeira').value = '';
+  document.getElementById('d_categoria').value = 'Manutenção';
+  document.getElementById('d_fornecedor').value = '';
+  document.getElementById('d_valor').value = '';
+  document.getElementById('d_nota').value = '';
+  document.getElementById('d_observacoes').value = '';
+  document.getElementById('tituloFormDespesa').textContent = 'Registrar Despesa';
+}
+
+function excluirDespesa(id){
+  if(!confirm('Excluir esta despesa?')) return;
+  despesas = despesas.filter(d=>d.id!==id);
+  persistirDespesas();
+  renderDespesas();
+}
+
+function exportarRelatorioDespesasPDF(){
+  const lista = obterDespesasFiltradas();
+  const total = lista.reduce((s,d)=>s+(Number(d.valor)||0), 0);
+  const porCategoria = {};
+  const porFornecedor = {};
+  lista.forEach(d => {
+    porCategoria[d.categoria] = (porCategoria[d.categoria]||0) + (Number(d.valor)||0);
+    if(!porFornecedor[d.fornecedor]) porFornecedor[d.fornecedor] = 0;
+    porFornecedor[d.fornecedor] += (Number(d.valor)||0);
+  });
+
+  const linhasCategoria = Object.keys(porCategoria)
+    .sort((a,b)=>porCategoria[b]-porCategoria[a])
+    .map(cat => `<tr><td>${cat}</td><td>${formatarMoeda(porCategoria[cat])}</td></tr>`).join('');
+
+  const linhasFornecedor = Object.keys(porFornecedor)
+    .sort((a,b)=>porFornecedor[b]-porFornecedor[a])
+    .map(f => `<tr><td>${f}</td><td>${formatarMoeda(porFornecedor[f])}</td></tr>`).join('');
+
+  const linhasDetalhe = [...lista]
+    .sort((a,b)=>(b.data||'').localeCompare(a.data||''))
+    .map(d => `<tr>
+      <td>${formatarDataBR(d.data)}</td>
+      <td>${d.empilhadeira||'—'}</td>
+      <td>${d.categoria}</td>
+      <td>${d.fornecedor||'—'}</td>
+      <td>${formatarMoeda(d.valor)}</td>
+      <td>${d.nota||'—'}</td>
+    </tr>`).join('');
+
+  const printArea = document.getElementById('printArea');
+  printArea.innerHTML = `
+    <div class="pf-doc">
+      <h1>Relatório de Controle de Despesas — Empilhadeiras</h1>
+      <div class="pf-sub">Control Construções – Grupo GPS &nbsp;|&nbsp; Gerado em ${formatarDataBR(hojeISO())}</div>
+
+      <div class="pf-parecer ok" style="margin-top:6px;">TOTAL GERAL: ${formatarMoeda(total)}</div>
+
+      <div class="pf-section">Total por Categoria</div>
+      <table class="pf-items"><thead><tr><th>Categoria</th><th>Total</th></tr></thead><tbody>${linhasCategoria}</tbody></table>
+
+      <div class="pf-section">Total por Fornecedor</div>
+      <table class="pf-items"><thead><tr><th>Fornecedor</th><th>Total</th></tr></thead><tbody>${linhasFornecedor}</tbody></table>
+
+      <div class="pf-section">Detalhamento dos Lançamentos</div>
+      <table class="pf-items">
+        <thead><tr><th>Data</th><th>Empilhadeira</th><th>Categoria</th><th>Fornecedor</th><th>Valor</th><th>Nota</th></tr></thead>
+        <tbody>${linhasDetalhe}</tbody>
+      </table>
+    </div>
+  `;
+  document.title = 'Relatorio_Despesas_' + hojeISO();
+  window.print();
+}
+
+/* =========================================================
+   CHECKLIST DE RECEBIMENTO PÓS-MANUTENÇÃO
+   ========================================================= */
+function renderizarDocumentacaoRecebimento(){
+  const container = document.getElementById('documentacaoContainer');
+  Array.from(container.querySelectorAll('.section-body')).forEach(el => el.remove());
+
+  const body = document.createElement('div');
+  body.className = 'section-body';
+
+  DOC_ITENS_RECEBIMENTO.forEach((label, iIdx) => {
+    try{
+      const rowId = `doc_${iIdx}`;
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.dataset.rowId = rowId;
+      row.dataset.label = label;
+      row.innerHTML = `
+        <div class="item-label">${label}</div>
+        <div class="opt-group" style="display:flex; gap:10px;">
+          <label class="opt conforme"><input type="radio" name="status_${rowId}" value="sim" onchange="onDocItemChange(this)"> Sim</label>
+        </div>
+        <div class="opt-group" style="display:flex; gap:10px;">
+          <label class="opt naoconforme"><input type="radio" name="status_${rowId}" value="nao" onchange="onDocItemChange(this)"> Não</label>
+        </div>
+        <textarea placeholder="Observações..." data-obs="${rowId}"></textarea>
+      `;
+      body.appendChild(row);
+    } catch(eItem){
+      mostrarErroGlobal('item documentação "' + label + '": ' + eItem.message);
+    }
+  });
+
+  container.appendChild(body);
+}
+
+function onDocItemChange(inputEl){
+  const row = inputEl.closest('.item-row');
+  row.querySelector('.opt.conforme').classList.toggle('checked', inputEl.value==='sim');
+  row.querySelector('.opt.naoconforme').classList.toggle('checked', inputEl.value==='nao');
+}
+
+function renderizarItensRecebimento(){
+  const container = document.getElementById('itensRecebimentoContainer');
+  Array.from(container.querySelectorAll('.section-title, .section-body')).forEach(el => el.remove());
+
+  SECOES_RECEBIMENTO.forEach((secao, sIdx) => {
+    try{
+      const title = document.createElement('div');
+      title.className = 'section-title';
+      title.textContent = secao.nome;
+      container.appendChild(title);
+
+      const body = document.createElement('div');
+      body.className = 'section-body';
+
+      secao.itens.forEach((item, iIdx) => {
+        try{
+          const rowId = `rs${sIdx}_i${iIdx}`;
+          const row = document.createElement('div');
+          row.className = 'item-row' + (item.critico ? ' critico' : '');
+          row.dataset.rowId = rowId;
+          row.dataset.critico = item.critico ? '1' : '0';
+          row.dataset.label = item.label;
+          row.innerHTML = `
+            <div class="item-label">${item.label} ${item.critico ? '<span class="tag-critico">Crítico</span>' : ''}</div>
+            <div class="opt-group" style="display:flex; gap:10px;">
+              <label class="opt conforme"><input type="radio" name="status_${rowId}" value="conforme" onchange="onItemChangeRecebimento(this)"> Conforme</label>
+            </div>
+            <div class="opt-group" style="display:flex; gap:10px;">
+              <label class="opt naoconforme"><input type="radio" name="status_${rowId}" value="nao_conforme" onchange="onItemChangeRecebimento(this)"> Não Conforme</label>
+            </div>
+            <textarea placeholder="Observações..." data-obs="${rowId}"></textarea>
+          `;
+          body.appendChild(row);
+        } catch(eItem){
+          mostrarErroGlobal('item recebimento "' + (item && item.label) + '": ' + eItem.message);
+        }
+      });
+
+      container.appendChild(body);
+    } catch(eSecao){
+      mostrarErroGlobal('seção recebimento "' + (secao && secao.nome) + '": ' + eSecao.message);
+    }
+  });
+}
+
+let parecerRecebimentoForcado = false;
+
+function onItemChangeRecebimento(inputEl){
+  const row = inputEl.closest('.item-row');
+  row.querySelector('.opt.conforme').classList.toggle('checked', inputEl.value==='conforme');
+  row.querySelector('.opt.naoconforme').classList.toggle('checked', inputEl.value==='nao_conforme');
+  avaliarCriticosRecebimento();
+}
+
+function avaliarCriticosRecebimento(){
+  const rows = document.querySelectorAll('#itensRecebimentoContainer .item-row');
+  let temCriticoNaoConforme = false;
+  rows.forEach(row => {
+    if(row.dataset.critico === '1'){
+      const checked = row.querySelector('input[value="nao_conforme"]:checked');
+      if(checked) temCriticoNaoConforme = true;
+    }
+  });
+
+  const alerta = document.getElementById('alertaCriticoRecebimento');
+  const optAprovado = document.getElementById('optAprovado');
+  const inputAprovado = optAprovado.querySelector('input');
+  const optRessalvas = document.getElementById('optAprovadoRessalvas');
+  const inputRessalvas = optRessalvas.querySelector('input');
+  const optReprovado = document.getElementById('optReprovado');
+  const inputReprovado = optReprovado.querySelector('input');
+
+  alerta.style.display = temCriticoNaoConforme ? 'flex' : 'none';
+  inputAprovado.disabled = temCriticoNaoConforme;
+  inputRessalvas.disabled = temCriticoNaoConforme;
+  optAprovado.classList.toggle('disabled', temCriticoNaoConforme);
+  optRessalvas.classList.toggle('disabled', temCriticoNaoConforme);
+
+  if(temCriticoNaoConforme){
+    inputReprovado.checked = true;
+    parecerRecebimentoForcado = true;
+  } else if(parecerRecebimentoForcado){
+    inputReprovado.checked = false;
+    parecerRecebimentoForcado = false;
+  }
+  atualizarVisualParecerRecebimento();
+  return temCriticoNaoConforme;
+}
+
+function atualizarVisualParecerRecebimento(){
+  const marcado = document.querySelector('input[name="parecerRecebimento"]:checked');
+  document.getElementById('optAprovado').classList.toggle('selected', !!marcado && marcado.value==='aprovado');
+  document.getElementById('optAprovadoRessalvas').classList.toggle('selected', !!marcado && marcado.value==='aprovado_ressalvas');
+  document.getElementById('optReprovado').classList.toggle('selected', !!marcado && marcado.value==='reprovado');
+}
+
+function onParecerRecebimentoChangeUsuario(){
+  parecerRecebimentoForcado = false;
+  atualizarVisualParecerRecebimento();
+}
+
+function popularVinculoManutencao(){
+  const select = document.getElementById('rec_vinculo');
+  if(!select) return;
+  const atual = select.value;
+  select.innerHTML = '<option value="">Nenhum</option>' + manutencoes.map(m =>
+    `<option value="${m.id}">${m.empilhadeira} — ${m.tipo} — ${formatarDataBR(m.data_agendada)}</option>`
+  ).join('');
+  select.value = atual;
+}
+
+function coletarRecebimento(){
+  const docRows = document.querySelectorAll('#documentacaoContainer .item-row');
+  const documentacao = [];
+  let faltandoDoc = 0;
+  docRows.forEach(row => {
+    const rowId = row.dataset.rowId;
+    const statusEl = row.querySelector(`input[name="status_${rowId}"]:checked`);
+    const obs = row.querySelector(`textarea[data-obs="${rowId}"]`).value.trim();
+    if(!statusEl) faltandoDoc++;
+    documentacao.push({ label: row.dataset.label, status: statusEl ? statusEl.value : null, obs });
+  });
+
+  const itemRows = document.querySelectorAll('#itensRecebimentoContainer .item-row');
+  const respostas = [];
+  let faltandoItens = 0;
+  itemRows.forEach(row => {
+    const rowId = row.dataset.rowId;
+    const statusEl = row.querySelector(`input[name="status_${rowId}"]:checked`);
+    const obs = row.querySelector(`textarea[data-obs="${rowId}"]`).value.trim();
+    if(!statusEl) faltandoItens++;
+    respostas.push({
+      label: row.dataset.label,
+      critico: row.dataset.critico === '1',
+      status: statusEl ? statusEl.value : null,
+      obs
+    });
+  });
+
+  const parecerEl = document.querySelector('input[name="parecerRecebimento"]:checked');
+
+  return {
+    documentacao, respostas,
+    faltando: faltandoDoc + faltandoItens,
+    parecer: parecerEl ? parecerEl.value : null,
+    dados: {
+      data: document.getElementById('rec_data').value,
+      os: document.getElementById('rec_os').value.trim(),
+      empilhadeira: document.getElementById('rec_empilhadeira').value.trim(),
+      marca_modelo: document.getElementById('rec_marca_modelo').value.trim(),
+      patrimonio: document.getElementById('rec_patrimonio').value.trim(),
+      horimetro: document.getElementById('rec_horimetro').value.trim(),
+      fornecedor: document.getElementById('rec_fornecedor').value.trim(),
+      vinculo_manutencao_id: document.getElementById('rec_vinculo').value,
+      naoconformidades: document.getElementById('rec_naoconformidades').value.trim(),
+      forn_nome: document.getElementById('rec_forn_nome').value.trim(),
+      forn_assinatura: document.getElementById('rec_forn_assinatura').value.trim(),
+      ctrl_nome: document.getElementById('rec_ctrl_nome').value.trim(),
+      ctrl_cargo: document.getElementById('rec_ctrl_cargo').value.trim(),
+      ctrl_assinatura: document.getElementById('rec_ctrl_assinatura').value.trim(),
+    }
+  };
+}
+
+function salvarRecebimento(exportarPdf){
+  const coleta = coletarRecebimento();
+
+  if(!coleta.dados.empilhadeira || !coleta.dados.fornecedor){
+    alert('Preencha ao menos: Empilhadeira e Fornecedor antes de salvar.');
+    return;
+  }
+  if(coleta.faltando > 0){
+    if(!confirm(`${coleta.faltando} item(ns) ainda não foram marcados. Deseja salvar mesmo assim?`)) return;
+  }
+  if(!coleta.parecer){
+    alert('Selecione o Parecer Final (Aprovado, Aprovado com Ressalvas ou Reprovado) antes de salvar.');
+    return;
+  }
+
+  const registro = {
+    id: 'REC-' + Date.now(),
+    criadoEm: new Date().toISOString(),
+    ...coleta.dados,
+    documentacao: coleta.documentacao,
+    itens: coleta.respostas,
+    parecer: coleta.parecer,
+  };
+
+  recebimentos.unshift(registro);
+  persistirRecebimentos();
+  alert('Checklist de recebimento salvo com sucesso. Registro: ' + registro.id);
+
+  if(exportarPdf) exportarRecebimentoPDF(registro);
+  limparFormRecebimento();
+  renderHistoricoRecebimento();
+}
+
+function limparFormRecebimento(){
+  document.querySelectorAll('#documentacaoContainer input[type=radio]').forEach(r => r.checked=false);
+  document.querySelectorAll('#documentacaoContainer textarea').forEach(t => t.value='');
+  document.querySelectorAll('#documentacaoContainer .opt').forEach(o => o.classList.remove('checked'));
+
+  document.querySelectorAll('#itensRecebimentoContainer input[type=radio]').forEach(r => r.checked=false);
+  document.querySelectorAll('#itensRecebimentoContainer textarea').forEach(t => t.value='');
+  document.querySelectorAll('#itensRecebimentoContainer .opt').forEach(o => o.classList.remove('checked'));
+  document.getElementById('alertaCriticoRecebimento').style.display='none';
+  parecerRecebimentoForcado = false;
+
+  document.querySelectorAll('input[name=parecerRecebimento]').forEach(r=>r.checked=false);
+  ['optAprovado','optAprovadoRessalvas','optReprovado'].forEach(id=>{
+    const opt = document.getElementById(id);
+    opt.classList.remove('selected','disabled');
+    opt.querySelector('input').disabled = false;
+  });
+
+  ['rec_os','rec_empilhadeira','rec_marca_modelo','rec_patrimonio','rec_horimetro','rec_fornecedor',
+   'rec_naoconformidades','rec_forn_nome','rec_forn_assinatura','rec_ctrl_nome','rec_ctrl_cargo','rec_ctrl_assinatura'
+  ].forEach(id=>{ document.getElementById(id).value=''; });
+  document.getElementById('rec_vinculo').value = '';
+  document.getElementById('rec_data').value = hojeISO();
+}
+
+function popularFiltroRecEmpilhadeiras(){
+  const select = document.getElementById('filtroRecEmpilhadeira');
+  const atual = select.value;
+  const nomes = [...new Set(recebimentos.map(r=>r.empilhadeira).filter(Boolean))].sort();
+  select.innerHTML = '<option value="">Todas</option>' + nomes.map(n=>`<option value="${n}">${n}</option>`).join('');
+  select.value = atual;
+}
+
+function rotuloParecerRecebimento(parecer){
+  if(parecer==='aprovado') return { texto:'Aprovado', classe:'liberado' };
+  if(parecer==='aprovado_ressalvas') return { texto:'Aprov. c/ Ressalvas', classe:'agendada' };
+  return { texto:'Reprovado', classe:'naoliberado' };
+}
+
+function renderHistoricoRecebimento(){
+  popularVinculoManutencao();
+  popularFiltroRecEmpilhadeiras();
+
+  const empF = document.getElementById('filtroRecEmpilhadeira').value;
+  const parF = document.getElementById('filtroRecParecer').value;
+  const fornF = document.getElementById('filtroRecFornecedor').value.toLowerCase();
+  const deF = document.getElementById('filtroRecDe').value;
+  const ateF = document.getElementById('filtroRecAte').value;
+
+  const filtrados = recebimentos.filter(r => {
+    if(empF && r.empilhadeira !== empF) return false;
+    if(parF && r.parecer !== parF) return false;
+    if(fornF && !(r.fornecedor||'').toLowerCase().includes(fornF)) return false;
+    if(deF && r.data < deF) return false;
+    if(ateF && r.data > ateF) return false;
+    return true;
+  });
+
+  const tbody = document.querySelector('#tabelaRecebimento tbody');
+  tbody.innerHTML = '';
+  document.getElementById('recebimentoVazio').style.display = filtrados.length ? 'none' : 'block';
+
+  filtrados.forEach(r => {
+    const rot = rotuloParecerRecebimento(r.parecer);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${formatarDataBR(r.data)}</td>
+      <td>${r.empilhadeira||'—'}</td>
+      <td>${r.fornecedor||'—'}</td>
+      <td>${r.horimetro||'—'}</td>
+      <td><span class="badge ${rot.classe}">${rot.texto}</span></td>
+      <td>
+        <button class="icon-btn" title="Ver" onclick="verRecebimento('${r.id}')">🔍</button>
+        <button class="icon-btn" title="Exportar PDF" onclick="exportarRecebimentoPDF(buscarRecebimento('${r.id}'))">📄</button>
+        <button class="icon-btn" title="Excluir" onclick="excluirRecebimento('${r.id}')">🗑️</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function buscarRecebimento(id){ return recebimentos.find(r=>r.id===id); }
+
+function excluirRecebimento(id){
+  if(!confirm('Excluir este checklist de recebimento? Esta ação não pode ser desfeita.')) return;
+  recebimentos = recebimentos.filter(r=>r.id!==id);
+  persistirRecebimentos();
+  renderHistoricoRecebimento();
+}
+
+function verRecebimento(id){
+  const reg = buscarRecebimento(id);
+  if(!reg) return;
+  const rot = rotuloParecerRecebimento(reg.parecer);
+  document.querySelector('.modal-header h3').textContent = 'Recebimento — ' + (reg.empilhadeira||'') + ' — ' + formatarDataBR(reg.data);
+
+  let docHtml = '';
+  (reg.documentacao||[]).forEach(d => {
+    const cls = d.status==='sim' ? 'ok' : (d.status==='nao' ? 'no' : '');
+    const txt = d.status==='sim' ? 'Sim' : (d.status==='nao' ? 'Não' : 'Não avaliado');
+    docHtml += `<tr><td>${d.label}</td><td class="status-pill ${cls}">${txt}</td><td>${d.obs||''}</td></tr>`;
+  });
+
+  let itensHtml = '';
+  (reg.itens||[]).forEach(it => {
+    const cls = it.status === 'conforme' ? 'ok' : (it.status==='nao_conforme' ? 'no' : '');
+    const txt = it.status === 'conforme' ? 'Conforme' : (it.status==='nao_conforme' ? 'Não Conforme' : 'Não avaliado');
+    itensHtml += `<tr><td>${it.label}${it.critico?' <b>(Crítico)</b>':''}</td><td class="status-pill ${cls}">${txt}</td><td>${it.obs||''}</td></tr>`;
+  });
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="kv">
+      <div><b>Empilhadeira</b>${reg.empilhadeira||'—'}</div>
+      <div><b>Fornecedor</b>${reg.fornecedor||'—'}</div>
+      <div><b>Marca/Modelo</b>${reg.marca_modelo||'—'}</div>
+      <div><b>Patrimônio</b>${reg.patrimonio||'—'}</div>
+      <div><b>Horímetro</b>${reg.horimetro||'—'}</div>
+      <div><b>Data / Nº O.S.</b>${formatarDataBR(reg.data)} — ${reg.os||'—'}</div>
+    </div>
+    <table class="mini-table">
+      <thead><tr><th>Documentação</th><th>Status</th><th>Obs.</th></tr></thead>
+      <tbody>${docHtml}</tbody>
+    </table>
+    <table class="mini-table">
+      <thead><tr><th>Item</th><th>Status</th><th>Obs.</th></tr></thead>
+      <tbody>${itensHtml}</tbody>
+    </table>
+    <div class="badge ${rot.classe}" style="font-size:13px; padding:6px 12px;">${rot.texto}</div>
+    ${reg.naoconformidades ? `<p style="font-size:12.5px; margin-top:10px;"><b>Não conformidades:</b> ${reg.naoconformidades}</p>` : ''}
+  `;
+  document.getElementById('modalPdfBtn').onclick = () => exportarRecebimentoPDF(reg);
+  document.getElementById('modalOverlay').hidden = false;
+}
+
+function montarHtmlRecebimento(reg){
+  let docHtml = '';
+  (reg.documentacao||[]).forEach(d => {
+    const txt = d.status==='sim' ? '✔ Sim' : (d.status==='nao' ? '✘ Não' : '— Não avaliado');
+    docHtml += `<tr><td>${d.label}</td><td>${txt}</td><td>${d.obs ? d.obs.replace(/</g,'&lt;') : ''}</td></tr>`;
+  });
+
+  let secoesHtml = '';
+  let cursor = 0;
+  SECOES_RECEBIMENTO.forEach(secao => {
+    let linhas = '';
+    secao.itens.forEach(() => {
+      const r = reg.itens[cursor];
+      const statusTxt = r.status === 'conforme' ? '✔ Conforme' : (r.status === 'nao_conforme' ? '✘ Não Conforme' : '— Não avaliado');
+      linhas += `<tr>
+        <td>${r.label}${r.critico ? ' <b>(Crítico)</b>' : ''}</td>
+        <td>${statusTxt}</td>
+        <td>${r.obs ? r.obs.replace(/</g,'&lt;') : ''}</td>
+      </tr>`;
+      cursor++;
+    });
+    secoesHtml += `<div class="pf-section">${secao.nome}</div>
+      <table class="pf-items">
+        <thead><tr><th>Item</th><th>Status</th><th>Observações</th></tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>`;
+  });
+
+  const rot = rotuloParecerRecebimento(reg.parecer);
+  const corParecer = reg.parecer === 'aprovado' ? 'ok' : (reg.parecer === 'reprovado' ? 'no' : '');
+
+  return `
+    <div class="pf-doc">
+      <h1>Checklist de Recebimento de Empilhadeira (GLP) Após Manutenção</h1>
+      <div class="pf-sub">Control Construções – Grupo GPS &nbsp;|&nbsp; Registro: ${reg.id}</div>
+      <table class="pf-header">
+        <tr>
+          <td><b>Data:</b> ${formatarDataBR(reg.data)}</td>
+          <td><b>Nº O.S.:</b> ${reg.os || '—'}</td>
+          <td><b>Empilhadeira:</b> ${reg.empilhadeira || '—'}</td>
+        </tr>
+        <tr>
+          <td><b>Marca/Modelo:</b> ${reg.marca_modelo || '—'}</td>
+          <td><b>Patrimônio:</b> ${reg.patrimonio || '—'}</td>
+          <td><b>Horímetro:</b> ${reg.horimetro || '—'}</td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>Fornecedor:</b> ${reg.fornecedor || '—'}</td>
+        </tr>
+      </table>
+
+      <div class="pf-section">1. Documentação</div>
+      <table class="pf-items">
+        <thead><tr><th>Item</th><th>Status</th><th>Observações</th></tr></thead>
+        <tbody>${docHtml}</tbody>
+      </table>
+
+      ${secoesHtml}
+
+      <div class="pf-parecer ${corParecer}">PARECER FINAL: ${rot.texto.toUpperCase()}</div>
+      ${reg.naoconformidades ? `<p><b>Não conformidades encontradas:</b><br>${reg.naoconformidades.replace(/</g,'&lt;')}</p>` : ''}
+
+      <div class="pf-sign">
+        <div>${reg.forn_nome || ''}<br>Fornecedor — Responsável Técnico</div>
+        <div>${reg.ctrl_nome || ''}${reg.ctrl_cargo ? ' — '+reg.ctrl_cargo : ''}<br>Control Construções — Responsável pelo Recebimento</div>
+      </div>
+    </div>
+  `;
+}
+
+function exportarRecebimentoPDF(reg){
+  if(!reg) return;
+  const printArea = document.getElementById('printArea');
+  printArea.innerHTML = montarHtmlRecebimento(reg);
+  document.title = 'Recebimento_' + (reg.empilhadeira || 'Empilhadeira') + '_' + reg.data;
+  window.print();
+}
+
+/* =========================================================
+   TRATAMENTO GLOBAL DE ERROS (evita tela "congelada" sem aviso)
+   ========================================================= */
+function mostrarErroGlobal(mensagem){
+  let banner = document.getElementById('erroGlobalBanner');
+  if(!banner){
+    banner = document.createElement('div');
+    banner.id = 'erroGlobalBanner';
+    banner.style.cssText = 'position:relative; width:100%; box-sizing:border-box; background:#C0272A; color:#fff; padding:10px 14px; font-size:12px; font-family:Arial,sans-serif; z-index:10; line-height:1.4;';
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+  banner.innerHTML = '⚠️ Ocorreu um erro no aplicativo: ' + mensagem + ' <span style="text-decoration:underline; cursor:pointer; font-weight:bold;" onclick="this.parentElement.remove()">Fechar</span>';
+}
+
+window.addEventListener('error', function(e){
+  mostrarErroGlobal(e.message || 'erro desconhecido');
+});
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  function executarComSeguranca(rotulo, fn){
+    try{ fn(); }
+    catch(e){ mostrarErroGlobal(rotulo + ': ' + e.message); }
+  }
+  executarComSeguranca('itens de inspeção', () => renderizarItens());
+  executarComSeguranca('navegação das abas (reforço)', () => {
+    document.querySelectorAll('nav.tabs button[data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => mudarAba(btn.dataset.tab));
+    });
+  });
+  executarComSeguranca('data padrão', () => { document.getElementById('f_data').value = hojeISO(); });
+  executarComSeguranca('número da O.S.', () => { document.getElementById('f_os').value = gerarNumeroOS(); });
+  executarComSeguranca('data padrão (despesas)', () => { document.getElementById('d_data').value = hojeISO(); });
+  executarComSeguranca('documentação recebimento', () => renderizarDocumentacaoRecebimento());
+  executarComSeguranca('itens recebimento', () => renderizarItensRecebimento());
+  executarComSeguranca('data padrão (recebimento)', () => { document.getElementById('rec_data').value = hojeISO(); });
+  executarComSeguranca('histórico', () => renderHistorico());
+  executarComSeguranca('manutenção', () => renderManutencoes());
+  executarComSeguranca('histórico de recebimento', () => renderHistoricoRecebimento());
+  executarComSeguranca('despesas', () => renderDespesas());
+});
+</script>
 </body>
-
 </html>
